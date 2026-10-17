@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Marina ist kreativ | Glass Chains, Handmade</title>
+<title>HOZI | Glass Chains, Handmade</title>
 <meta name="description" content="Handmade glass-bead chains designed to make your everyday style stand out. Unique, affordable, made for Egypt. Cash on Delivery available.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -94,18 +94,39 @@
   /* NAV */
   header{
     position:fixed;top:0;left:0;right:0;z-index:50;
-    padding:22px 0;
+    padding:16px 0;
     transition:background .35s var(--ease), padding .35s var(--ease), box-shadow .35s var(--ease), border-color .35s var(--ease);
     border-bottom:1px solid transparent;
   }
   header.solid{
-    background:rgba(246,244,239,0.92);
+    background:rgba(246,244,239,0.95);
     backdrop-filter:blur(10px);
-    padding:14px 0;
+    padding:10px 0;
     border-color:var(--line);
   }
   .nav-row{display:flex;align-items:center;justify-content:space-between;gap:24px;}
-  .brand{display:flex;align-items:baseline;gap:8px;font-family:'Fraunces',serif;font-size:26px;font-weight:500;}
+  
+  /* Brand with Logo */
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-family:'Fraunces',serif;
+    font-size:26px;
+    font-weight:600;
+    letter-spacing:1px;
+  }
+  .brand-logo{
+    height:42px;
+    width:auto;
+    object-fit:contain;
+    border-radius:6px;
+    transition:transform .3s ease;
+  }
+  .brand:hover .brand-logo{
+    transform:scale(1.05);
+  }
+
   header.light .brand,
   header.light .navlinks a,
   header.light .navicons button{color:var(--ink);}
@@ -157,10 +178,10 @@
   .hero-media img{width:100%;height:100%;object-fit:cover;object-position:center;filter:saturate(0.96);}
   .hero-media::after{
     content:"";position:absolute;inset:0;
-    background:linear-gradient(180deg,rgba(20,22,20,.15) 0%, rgba(20,22,20,.08) 40%, rgba(20,20,18,.72) 100%);
+    background:linear-gradient(180deg,rgba(20,22,20,.2) 0%, rgba(20,22,20,.1) 40%, rgba(20,20,18,.75) 100%);
   }
   .hero-inner{position:relative;z-index:1;width:100%;padding:0 32px 88px;}
-  .hero-eyebrow{color:rgba(255,255,255,.78);font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.18em;text-transform:uppercase;margin-bottom:18px;display:flex;align-items:center;gap:10px;}
+  .hero-eyebrow{color:rgba(255,255,255,.85);font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.18em;text-transform:uppercase;margin-bottom:18px;display:flex;align-items:center;gap:10px;}
   .hero-eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--blush);}
   .hero h1{
     font-size:clamp(44px,7.2vw,92px);
@@ -212,12 +233,6 @@
   .card-media{position:relative;aspect-ratio:4/5;overflow:hidden;background:var(--glass);}
   .card-media img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease);}
   .card:hover .card-media img{transform:scale(1.06);}
-  .badge{
-    position:absolute;top:14px;left:14px;
-    background:var(--ink);color:var(--paper);
-    font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;
-    padding:6px 10px;border-radius:100px;
-  }
   .qv-btn{
     position:absolute;left:14px;right:14px;bottom:-46px;
     background:rgba(246,244,239,.95);color:var(--ink);
@@ -458,7 +473,10 @@
 
 <header id="site-header" class="on-hero">
   <div class="wrap nav-row">
-    <a href="#hero" class="brand">Marina ist kreativ</a>
+    <a href="#hero" class="brand">
+      <img src="logo.png" alt="HOZI Logo" class="brand-logo" onerror="this.onerror=null; this.src='logo.jpg';">
+      <span>HOZI</span>
+    </a>
     <nav aria-label="Primary">
       <ul class="navlinks">
         <li><a href="#hero">Home</a></li>
@@ -499,7 +517,7 @@
   <div class="hero-inner wrap">
     <div class="hero-eyebrow"><span class="dot"></span> Handmade glass chains &nbsp;·&nbsp; Cairo, Egypt</div>
     <h1>Wear Something <em>Different.</em></h1>
-    <p class="hero-sub">Unique glass chains designed to make your everyday style stand out.</p>
+    <p class="hero-sub">Unique glass chains designed to make your everyday style stand out with HOZI.</p>
     <div class="hero-ctas">
       <a href="#shop" class="btn btn-primary">Shop the Collection</a>
       <a href="https://wa.me/201220348402" target="_blank" class="btn btn-ghost">Chat on WhatsApp</a>
@@ -524,7 +542,7 @@
 <section id="why" data-anchor>
   <div class="wrap">
     <div class="section-head" data-reveal>
-      <span class="eyebrow">Why Marina ist kreativ</span>
+      <span class="eyebrow">Why HOZI</span>
       <h2>Small chain. Real difference.</h2>
     </div>
     <div class="why-grid" data-reveal>
@@ -606,7 +624,7 @@
 <section id="social" data-anchor>
   <div class="wrap">
     <div class="section-head center" data-reveal style="margin-left:auto;margin-right:auto;">
-      <span class="eyebrow">@marinaistkreativ</span>
+      <span class="eyebrow">@hozi.eg</span>
       <h2>See It. Style It. Make It Yours.</h2>
     </div>
     <div class="insta-grid" data-reveal id="insta-grid"></div>
@@ -628,7 +646,10 @@
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-brand">
-        <div class="brand">Marina ist kreativ</div>
+        <div class="brand">
+          <img src="logo.png" alt="HOZI Logo" class="brand-logo" onerror="this.onerror=null; this.src='logo.jpg';">
+          <span>HOZI</span>
+        </div>
         <p>Handmade glass chains, designed and crafted in Egypt. Minimal, delicate, timeless.</p>
       </div>
       <div>
@@ -657,7 +678,7 @@
       </div>
     </div>
     <div class="foot-bottom">
-      <div>© 2026 Marina ist kreativ. All rights reserved.</div>
+      <div>© 2026 HOZI. All rights reserved.</div>
       <div>Handmade in Egypt</div>
     </div>
   </div>
@@ -757,7 +778,7 @@
   <div class="confirm-wrap" id="co-success-view" style="display:none;">
     <div class="confirm-icon">✓</div>
     <h3>Order Confirmed!</h3>
-    <p>Thank you for ordering with Marina ist kreativ. We will be in touch shortly to confirm your delivery details.</p>
+    <p>Thank you for ordering with HOZI. We will be in touch shortly to confirm your delivery details.</p>
     <div class="order-id" id="co-order-id"></div>
     <div style="margin-top:24px;">
       <button class="btn btn-dark" id="co-finish-btn">Back to Shop</button>
@@ -768,7 +789,7 @@
 <div class="toast" id="toast">Added to bag</div>
 
 <script>
-  // الترتيب الدقيق والمطابق لأسماء الملفات في المستودع:
+  // الترتيب المطابق لأسماء الملفات المرفوعة في المستودع
   const products = [
     {
       id: "product1",
@@ -873,7 +894,7 @@
     </div>
   `).join('');
 
-  // Style Moods and Instagram Items using valid filenames
+  // Style Moods and Instagram Items
   document.getElementById('moods-strip').innerHTML = products.slice(0, 6).map((p, idx) => `
     <div class="mood-card">
       <img src="${p.image}" alt="${p.title}" loading="lazy">
@@ -887,7 +908,7 @@
   document.getElementById('insta-grid').innerHTML = products.slice(0, 4).map(p => `
     <div class="insta-item">
       <img src="${p.image}" alt="${p.title}" loading="lazy">
-      <span class="tag">#marinaistkreativ</span>
+      <span class="tag">#hozi</span>
     </div>
   `).join('');
 
@@ -1016,7 +1037,7 @@
 
   document.getElementById('order-form').onsubmit = (e) => {
     e.preventDefault();
-    const orderId = "MK-" + Math.floor(100000 + Math.random() * 900000);
+    const orderId = "HZ-" + Math.floor(100000 + Math.random() * 900000);
     document.getElementById('co-order-id').innerText = "Order Reference: " + orderId;
     document.getElementById('co-form-view').style.display = 'none';
     document.getElementById('co-success-view').style.display = 'block';
