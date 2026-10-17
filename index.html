@@ -106,7 +106,6 @@
   }
   .nav-row{display:flex;align-items:center;justify-content:space-between;gap:24px;}
   .brand{display:flex;align-items:baseline;gap:8px;font-family:'Fraunces',serif;font-size:26px;font-weight:500;}
-  .brand span.ar{font-size:16px;color:var(--water-deep);font-weight:400;}
   header.light .brand,
   header.light .navlinks a,
   header.light .navicons button{color:var(--ink);}
@@ -155,7 +154,7 @@
     color:#fff;overflow:hidden;
   }
   .hero-media{position:absolute;inset:0;z-index:0;}
-  .hero-media img{width:100%;height:100%;object-fit:cover;object-position:60% 20%;filter:saturate(0.96);}
+  .hero-media img{width:100%;height:100%;object-fit:cover;object-position:center;filter:saturate(0.96);}
   .hero-media::after{
     content:"";position:absolute;inset:0;
     background:linear-gradient(180deg,rgba(20,22,20,.15) 0%, rgba(20,22,20,.08) 40%, rgba(20,20,18,.72) 100%);
@@ -241,7 +240,6 @@
     transition:background .3s var(--ease);
   }
   .add-btn:hover{background:var(--water-deep);}
-  .add-btn.added{background:var(--water);}
 
   .wa-btn{
     background:#25D366;color:#FFFFFF;
@@ -450,7 +448,6 @@
 </head>
 <body>
 
-<!-- signature thread rail -->
 <div id="thread-rail" aria-hidden="true">
   <svg viewBox="0 0 26 1000" preserveAspectRatio="none">
     <path id="thread-line" d="M13,0 L13,1000"></path>
@@ -497,7 +494,7 @@
 <!-- HERO -->
 <section class="hero" id="hero" style="padding:0;">
   <div class="hero-media">
-    <img src="cover.jpg.jpeg" alt="Cover Collection" onerror="this.onerror=null; this.src='cover.jpg';">
+    <img src="cover.jpg.jpeg" alt="Cover Collection">
   </div>
   <div class="hero-inner wrap">
     <div class="hero-eyebrow"><span class="dot"></span> Handmade glass chains &nbsp;·&nbsp; Cairo, Egypt</div>
@@ -558,12 +555,12 @@
 <!-- STYLE / MOODS -->
 <section id="moods" data-anchor>
   <div class="wrap">
+    <div class="section-head center" data-reveal style="margin-left:auto;margin-right:auto;">
+      <span class="eyebrow">Style Guide</span>
+      <h2>One Chain. Different Moods.</h2>
+      <p>The same drop looks new depending on how — and when — you wear it.</p>
+    </div>
     <div class="moods-wrap" data-reveal>
-      <div class="moods-head">
-        <span class="eyebrow">Style Guide</span>
-        <h2>One Chain. Different Moods.</h2>
-        <p>The same drop looks new depending on how — and when — you wear it.</p>
-      </div>
       <div class="moods-strip" id="moods-strip"></div>
     </div>
   </div>
@@ -666,7 +663,7 @@
   </div>
 </footer>
 
-<!-- Modals and Drawers -->
+<!-- Modals -->
 <div class="scrim" id="scrim"></div>
 
 <!-- Quick View Modal -->
@@ -681,7 +678,7 @@
       <p class="desc" id="qv-desc"></p>
       <div class="qv-meta">
         <div><b>Material:</b> Hand-strung glass beads & transparent cord</div>
-        <div><b>Delivery:</b> Fast delivery all across Egypt (Cash on Delivery)</div>
+        <div><b>Delivery:</b> Fast delivery across Egypt (Cash on Delivery)</div>
       </div>
       <div class="qty-row">
         <span>Quantity:</span>
@@ -760,7 +757,7 @@
   <div class="confirm-wrap" id="co-success-view" style="display:none;">
     <div class="confirm-icon">✓</div>
     <h3>Order Confirmed!</h3>
-    <p>Thank you for ordering with Marina ist kreativ. We'll be in touch shortly to confirm your delivery details.</p>
+    <p>Thank you for ordering with Marina ist kreativ. We will be in touch shortly to confirm your delivery details.</p>
     <div class="order-id" id="co-order-id"></div>
     <div style="margin-top:24px;">
       <button class="btn btn-dark" id="co-finish-btn">Back to Shop</button>
@@ -771,63 +768,21 @@
 <div class="toast" id="toast">Added to bag</div>
 
 <script>
-  // Products sorted reversed (from product10 down to product1) matching actual files
+  // الترتيب الدقيق والمطابق لأسماء الملفات في المستودع:
   const products = [
+    {
+      id: "product1",
+      title: "Waterfall Glass Drops",
+      price: 150,
+      image: "product1.jpg.jpeg",
+      desc: "Signature multi-layer handmade chain with airy glass drops catching subtle reflections."
+    },
     {
       id: "product10",
       title: "Double-Layer Pyramid Drop",
       price: 140,
       image: "product10.jpg.jpeg",
       desc: "Delicate dual-strand floating cord highlighted by a clear geometric water-drop crystal."
-    },
-    {
-      id: "product9",
-      title: "Pure Dewline Choker",
-      price: 130,
-      image: "product9.jpg.jpeg",
-      desc: "An unbroken line of pure crystal bubbles featuring an offset fluid water-drop."
-    },
-    {
-      id: "product8",
-      title: "Floating Pebble Choker",
-      price: 125,
-      image: "product8.jpg.jpeg",
-      desc: "Naturally spaced flat crystal drops that reflect daylight softly across your collarbone."
-    },
-    {
-      id: "product7",
-      title: "Triple Wave Cascades",
-      price: 150,
-      image: "product7.jpg.jpeg",
-      desc: "Three cascading layers of sparkling glass bubbles offering a radiant statement style."
-    },
-    {
-      id: "product6",
-      title: "Single Y-Drop Choker",
-      price: 120,
-      image: "product6.jpg.jpeg",
-      desc: "Minimalist transparent choker with a central bead holding an elegant hanging teardrop."
-    },
-    {
-      id: "product5",
-      title: "Royal Crystal Mesh Collar",
-      price: 220,
-      image: "product5.jpg.jpeg",
-      desc: "Intricate woven web of shimmering glass drops that gently rests over the chest like morning dew."
-    },
-    {
-      id: "product4",
-      title: "Triple Harmonic Wave",
-      price: 160,
-      image: "product4.jpg.jpeg",
-      desc: "Rich cascading gradient layers designed for versatile day-to-night styling."
-    },
-    {
-      id: "product3",
-      title: "Triple Bubble Illusion",
-      price: 100,
-      image: "product3.jpg.jpeg",
-      desc: "Subtle elegance with three pure glass beads floating silently on an invisible thread."
     },
     {
       id: "product2",
@@ -837,11 +792,53 @@
       desc: "Single row of clear glass beads finished with an offset sculpted teardrop."
     },
     {
-      id: "product1",
-      title: "Waterfall Glass Drops",
+      id: "product3",
+      title: "Triple Bubble Illusion",
+      price: 100,
+      image: "product3.jpg.jpeg",
+      desc: "Subtle elegance with three pure glass beads floating silently on an invisible thread."
+    },
+    {
+      id: "product4",
+      title: "Triple Harmonic Wave",
+      price: 160,
+      image: "product4.jpg.jpeg",
+      desc: "Rich cascading gradient layers designed for versatile day-to-night styling."
+    },
+    {
+      id: "product5",
+      title: "Royal Crystal Mesh Collar",
+      price: 220,
+      image: "product5.jpg.jpeg",
+      desc: "Intricate woven web of shimmering glass drops that gently rests over the chest like morning dew."
+    },
+    {
+      id: "product6",
+      title: "Single Y-Drop Choker",
+      price: 120,
+      image: "product6.jpg.jpeg",
+      desc: "Minimalist transparent choker with a central bead holding an elegant hanging teardrop."
+    },
+    {
+      id: "product7",
+      title: "Triple Wave Cascades",
       price: 150,
-      image: "product1.jpg.jpeg",
-      desc: "Signature multi-layer handmade chain with airy glass drops catching subtle reflections."
+      image: "product7.jpg.jpeg",
+      desc: "Three cascading layers of sparkling glass bubbles offering a radiant statement style."
+    },
+    {
+      id: "product8",
+      title: "Floating Pebble Choker",
+      price: 125,
+      image: "product8.jpg.jpeg",
+      desc: "Naturally spaced flat crystal drops that reflect daylight softly across your collarbone."
+    },
+    {
+      id: "product9",
+      title: "Pure Dewline Choker",
+      price: 130,
+      image: "product9.jpg.jpeg",
+      desc: "An unbroken line of pure crystal bubbles featuring an offset fluid water-drop."
     }
   ];
 
@@ -850,12 +847,12 @@
   let currentProduct = null;
   let currentQty = 1;
 
-  // Render Products
+  // Render Products Grid
   const grid = document.getElementById('product-grid');
   grid.innerHTML = products.map(p => `
     <div class="card" data-id="${p.id}">
       <div class="card-media">
-        <img src="${p.image}" alt="${p.title}" onerror="this.onerror=null; this.src='${p.id}.jpg';">
+        <img src="${p.image}" alt="${p.title}" loading="lazy">
         <button class="qv-btn" onclick="openQuickView('${p.id}')">Quick View</button>
       </div>
       <div class="card-body">
@@ -867,7 +864,7 @@
         </div>
         <div class="card-actions">
           <button class="add-btn" onclick="addToCart('${p.id}')">Add to Bag</button>
-          <a class="wa-btn" href="https://wa.me/${whatsappPhone}?text=Hello,%20I%20would%20like%20to%20order%20${encodeURIComponent(p.title)}%20(${p.price}%20EGP)" target="_blank" title="Order via WhatsApp">
+          <a class="wa-btn" href="https://wa.me/${whatsappPhone}?text=Hello,%20I%20want%20to%20order%20${encodeURIComponent(p.title)}%20(${p.price}%20EGP)" target="_blank" title="Order via WhatsApp">
             <svg viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm.01 18.07c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.3c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.83c.01 4.54-3.69 8.23-8.22 8.23zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.14.17-.25.25-.41.08-.17.04-.31-.02-.43s-.56-1.34-.76-1.84c-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.22.25-.86.84-.86 2.05 0 1.21.88 2.38 1 2.55.12.17 1.74 2.66 4.21 3.73.59.25 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.07-.11-.23-.17-.47-.3z"/></svg>
             Order
           </a>
@@ -876,10 +873,10 @@
     </div>
   `).join('');
 
-  // Style Moods and Instagram items populated using the products
+  // Style Moods and Instagram Items using valid filenames
   document.getElementById('moods-strip').innerHTML = products.slice(0, 6).map((p, idx) => `
     <div class="mood-card">
-      <img src="${p.image}" alt="${p.title}" onerror="this.onerror=null; this.src='${p.id}.jpg';">
+      <img src="${p.image}" alt="${p.title}" loading="lazy">
       <div class="mood-label">
         <span class="eyebrow">Style 0${idx+1}</span>
         <h4>${p.title}</h4>
@@ -889,7 +886,7 @@
 
   document.getElementById('insta-grid').innerHTML = products.slice(0, 4).map(p => `
     <div class="insta-item">
-      <img src="${p.image}" alt="${p.title}" onerror="this.onerror=null; this.src='${p.id}.jpg';">
+      <img src="${p.image}" alt="${p.title}" loading="lazy">
       <span class="tag">#marinaistkreativ</span>
     </div>
   `).join('');
@@ -903,7 +900,7 @@
     document.getElementById('qv-price').innerText = currentProduct.price + " EGP";
     document.getElementById('qv-desc').innerText = currentProduct.desc;
     document.getElementById('qty-val').innerText = currentQty;
-    document.getElementById('qv-wa-btn').href = `https://wa.me/${whatsappPhone}?text=Hello,%20I%20would%20like%20to%20order%20${encodeURIComponent(currentProduct.title)}%20(${currentProduct.price}%20EGP)`;
+    document.getElementById('qv-wa-btn').href = `https://wa.me/${whatsappPhone}?text=Hello,%20I%20want%20to%20order%20${encodeURIComponent(currentProduct.title)}%20(${currentProduct.price}%20EGP)`;
     
     document.getElementById('scrim').classList.add('show');
     document.getElementById('qv-modal').classList.add('show');
@@ -962,7 +959,7 @@
     } else {
       itemsContainer.innerHTML = cart.map(item => `
         <div class="cart-item">
-          <img src="${item.image}" alt="${item.title}" onerror="this.onerror=null; this.src='${item.id}.jpg';">
+          <img src="${item.image}" alt="${item.title}">
           <div class="ci-info">
             <div class="ci-name">${item.title}</div>
             <div class="ci-price">${item.price} EGP × ${item.qty}</div>
@@ -986,7 +983,6 @@
     document.getElementById('scrim').classList.remove('show');
   };
 
-  // Toast Function
   function showToast(msg) {
     const toast = document.getElementById('toast');
     toast.innerText = msg;
@@ -1033,7 +1029,6 @@
     document.getElementById('scrim').classList.remove('show');
   };
 
-  // Scrim Close
   document.getElementById('scrim').onclick = () => {
     document.getElementById('qv-modal').classList.remove('show');
     document.getElementById('cart-drawer').classList.remove('show');
@@ -1041,7 +1036,6 @@
     document.getElementById('scrim').classList.remove('show');
   };
 
-  // Navigation and header scroll styles
   window.addEventListener('scroll', () => {
     const header = document.getElementById('site-header');
     if (window.scrollY > 80) {
@@ -1055,14 +1049,12 @@
     }
   });
 
-  // Mobile menu
   document.getElementById('menu-open').onclick = () => document.getElementById('mobile-menu').classList.add('open');
   document.getElementById('menu-close').onclick = () => document.getElementById('mobile-menu').classList.remove('open');
   document.querySelectorAll('#mobile-menu a').forEach(a => {
     a.onclick = () => document.getElementById('mobile-menu').classList.remove('open');
   });
 
-  // Reveal elements on scroll
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
