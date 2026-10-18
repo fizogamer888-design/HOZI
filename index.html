@@ -230,15 +230,75 @@
     transition:transform .4s var(--ease), box-shadow .4s var(--ease);
   }
   .card:hover{transform:translateY(-6px);box-shadow:var(--shadow);}
-  .card-media{position:relative;aspect-ratio:4/5;overflow:hidden;background:var(--glass);}
-  .card-media img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease);}
-  .card:hover .card-media img{transform:scale(1.06);}
+  .card-media{
+    position:relative;
+    aspect-ratio:4/5;
+    overflow:hidden;
+    background:var(--glass);
+  }
+  .card-media img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:transform .4s var(--ease), opacity .3s ease;
+  }
+  .card:hover .card-media img{transform:scale(1.04);}
+
+  /* SLIDER ARROWS FOR CARDS & QUICK VIEW */
+  .slide-btn{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    width:34px;
+    height:34px;
+    background:rgba(255,255,255,0.85);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:15px;
+    color:var(--ink);
+    cursor:pointer;
+    z-index:10;
+    box-shadow:0 2px 8px rgba(0,0,0,0.15);
+    transition:background .2s, transform .2s;
+  }
+  .slide-btn:hover{
+    background:#ffffff;
+    transform:translateY(-50%) scale(1.1);
+  }
+  .slide-prev{left:10px;}
+  .slide-next{right:10px;}
+
+  .slide-indicators{
+    position:absolute;
+    bottom:12px;
+    left:50%;
+    transform:translateX(-50%);
+    display:flex;
+    gap:6px;
+    z-index:10;
+  }
+  .slide-dot{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:rgba(255,255,255,0.55);
+    transition:all .3s ease;
+  }
+  .slide-dot.active{
+    background:var(--ink);
+    width:16px;
+    border-radius:10px;
+  }
+
   .qv-btn{
     position:absolute;left:14px;right:14px;bottom:-46px;
     background:rgba(246,244,239,.95);color:var(--ink);
     font-size:12px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;
     padding:12px;border-radius:100px;text-align:center;
     transition:bottom .35s var(--ease);
+    z-index:15;
   }
   .card:hover .qv-btn{bottom:14px;}
   .card-body{padding:20px 20px 22px;display:flex;flex-direction:column;gap:10px;flex:1;}
@@ -363,10 +423,10 @@
     box-shadow:0 40px 80px -30px rgba(0,0,0,.45);
   }
   #qv-modal.show{opacity:1;pointer-events:auto;transform:translate(-50%,-50%) scale(1);}
-  .qv-close{position:absolute;top:18px;right:18px;background:var(--white);width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:2;border:1px solid var(--line);}
+  .qv-close{position:absolute;top:18px;right:18px;background:var(--white);width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:20;border:1px solid var(--line);}
   .qv-layout{display:grid;grid-template-columns:1fr 1fr;}
   @media(max-width:680px){.qv-layout{grid-template-columns:1fr;}}
-  .qv-media{aspect-ratio:1/1;overflow:hidden;background:var(--glass);}
+  .qv-media{position:relative;aspect-ratio:1/1;overflow:hidden;background:var(--glass);}
   .qv-media img{width:100%;height:100%;object-fit:cover;}
   .qv-content{padding:40px;display:flex;flex-direction:column;gap:16px;}
   .qv-content h3{font-size:28px;}
@@ -474,7 +534,7 @@
 <header id="site-header" class="on-hero">
   <div class="wrap nav-row">
     <a href="#hero" class="brand">
-      <img src="logo.png" alt="HOZI Logo" class="brand-logo" onerror="this.onerror=null; this.src='logo.jpg';">
+      <img src="logo.jpg" alt="" class="brand-logo" onerror="if(!this.triedPng){this.triedPng=true;this.src='logo.png.jpeg';}else{this.style.display='none';}">
       <span>HOZI</span>
     </a>
     <nav aria-label="Primary">
@@ -512,7 +572,7 @@
 <!-- HERO -->
 <section class="hero" id="hero" style="padding:0;">
   <div class="hero-media">
-    <img src="cover.jpg.jpeg" alt="Cover Collection">
+    <img src="cover.jpg.jpeg" alt="Cover Collection" onerror="this.onerror=null; this.src='cover.jpg';">
   </div>
   <div class="hero-inner wrap">
     <div class="hero-eyebrow"><span class="dot"></span> Handmade glass chains &nbsp;·&nbsp; Cairo, Egypt</div>
@@ -532,7 +592,7 @@
     <div class="section-head" data-reveal>
       <span class="eyebrow">Our Collection</span>
       <h2>Chains people keep coming back for.</h2>
-      <p>Every piece is strung by hand, one glass drop at a time — catch the light effortlessly.</p>
+      <p>Every piece is strung by hand, one glass drop at a time — use the arrows to explore different angles.</p>
     </div>
     <div class="grid-products" id="product-grid" data-reveal></div>
   </div>
@@ -647,7 +707,7 @@
     <div class="foot-grid">
       <div class="foot-brand">
         <div class="brand">
-          <img src="logo.png" alt="HOZI Logo" class="brand-logo" onerror="this.onerror=null; this.src='logo.jpg';">
+          <img src="logo.jpg" alt="" class="brand-logo" onerror="if(!this.triedPng){this.triedPng=true;this.src='logo.png.jpeg';}else{this.style.display='none';}">
           <span>HOZI</span>
         </div>
         <p>Handmade glass chains, designed and crafted in Egypt. Minimal, delicate, timeless.</p>
@@ -687,11 +747,16 @@
 <!-- Modals -->
 <div class="scrim" id="scrim"></div>
 
-<!-- Quick View Modal -->
+<!-- Quick View Modal (مع خاصية السلايدر أيضاً) -->
 <div id="qv-modal">
   <button class="qv-close" id="qv-close" aria-label="Close">✕</button>
   <div class="qv-layout">
-    <div class="qv-media"><img id="qv-img" src="" alt=""></div>
+    <div class="qv-media" id="qv-media-container">
+      <img id="qv-img" src="" alt="">
+      <button class="slide-btn slide-prev" id="qv-prev-btn" style="display:none;" onclick="slideQuickView(-1)">❮</button>
+      <button class="slide-btn slide-next" id="qv-next-btn" style="display:none;" onclick="slideQuickView(1)">❯</button>
+      <div class="slide-indicators" id="qv-indicators" style="display:none;"></div>
+    </div>
     <div class="qv-content">
       <span class="badge" id="qv-badge">Handmade</span>
       <h3 id="qv-title"></h3>
@@ -789,77 +854,69 @@
 <div class="toast" id="toast">Added to bag</div>
 
 <script>
-  // الترتيب المطابق لأسماء الملفات المرفوعة في المستودع
+  // قائمة المنتجات مع دعم مصفوفة الصور (images) لخاصية الـ Slider
   const products = [
     {
-      id: "product1",
-      title: "Waterfall Glass Drops",
+      id: "item1",
+      title: "Double-Angle Illusion Drop I",
       price: 150,
-      image: "product1.jpg.jpeg",
-      desc: "Signature multi-layer handmade chain with airy glass drops catching subtle reflections."
+      images: [
+        "`item1_a.jpeg`.jpeg",
+        "`item1_b.jpeg`.jpeg"
+      ],
+      desc: "Delicate glass crystal drop choker shown from multiple stunning angles."
     },
     {
-      id: "product10",
-      title: "Double-Layer Pyramid Drop",
-      price: 140,
-      image: "product10.jpg.jpeg",
-      desc: "Delicate dual-strand floating cord highlighted by a clear geometric water-drop crystal."
+      id: "item2",
+      title: "Double-Angle Illusion Drop II",
+      price: 160,
+      images: [
+        "`item2_a.jpeg`.jpeg",
+        "`item2_b.jpeg`.jpeg"
+      ],
+      desc: "Floating transparent necklace crafted with precision and pure glass elements."
     },
     {
-      id: "product2",
-      title: "Side Dewdrop Choker",
-      price: 130,
-      image: "product2.jpg.jpeg",
-      desc: "Single row of clear glass beads finished with an offset sculpted teardrop."
-    },
-    {
-      id: "product3",
-      title: "Triple Bubble Illusion",
-      price: 100,
-      image: "product3.jpg.jpeg",
-      desc: "Subtle elegance with three pure glass beads floating silently on an invisible thread."
+      id: "product1",
+      title: "Single Floating Bead Choker",
+      price: 120,
+      images: ["product1.jpg.jpeg"],
+      desc: "A pure minimal glass sphere resting delicately in the center of the collarbone."
     },
     {
       id: "product4",
-      title: "Triple Harmonic Wave",
-      price: 160,
-      image: "product4.jpg.jpeg",
-      desc: "Rich cascading gradient layers designed for versatile day-to-night styling."
+      title: "Triple Drop Pendant Choker",
+      price: 140,
+      images: ["product4.jpg.jpeg"],
+      desc: "Three vertically aligned crystal drops offering an elongated, flattering silhouette."
     },
     {
       id: "product5",
-      title: "Royal Crystal Mesh Collar",
-      price: 220,
-      image: "product5.jpg.jpeg",
-      desc: "Intricate woven web of shimmering glass drops that gently rests over the chest like morning dew."
+      title: "Triple Horizontal Bead Choker",
+      price: 130,
+      images: ["product5.jpg.jpeg"],
+      desc: "Three perfectly spaced glass drops creating a subtle floating water-droplet illusion."
     },
     {
       id: "product6",
       title: "Single Y-Drop Choker",
       price: 120,
-      image: "product6.jpg.jpeg",
-      desc: "Minimalist transparent choker with a central bead holding an elegant hanging teardrop."
-    },
-    {
-      id: "product7",
-      title: "Triple Wave Cascades",
-      price: 150,
-      image: "product7.jpg.jpeg",
-      desc: "Three cascading layers of sparkling glass bubbles offering a radiant statement style."
+      images: ["product6.jpg.jpeg"],
+      desc: "Minimalist transparent choker featuring an elegant hanging teardrop."
     },
     {
       id: "product8",
-      title: "Floating Pebble Choker",
-      price: 125,
-      image: "product8.jpg.jpeg",
-      desc: "Naturally spaced flat crystal drops that reflect daylight softly across your collarbone."
+      title: "Double Layer Geometric Droplet",
+      price: 150,
+      images: ["product8.jpg.jpeg"],
+      desc: "Two shimmering delicate tiers crowned with a focal pyramid drop crystal."
     },
     {
       id: "product9",
-      title: "Pure Dewline Choker",
-      price: 130,
-      image: "product9.jpg.jpeg",
-      desc: "An unbroken line of pure crystal bubbles featuring an offset fluid water-drop."
+      title: "Floating Pebble Choker",
+      price: 125,
+      images: ["product9.jpg.jpeg"],
+      desc: "Rhythmically spaced flat crystal beads catching soft reflections along the neckline."
     }
   ];
 
@@ -867,37 +924,86 @@
   let cart = [];
   let currentProduct = null;
   let currentQty = 1;
+  let currentQvSlide = 0;
 
-  // Render Products Grid
+  // Render Products Grid مع السلايدر
   const grid = document.getElementById('product-grid');
-  grid.innerHTML = products.map(p => `
-    <div class="card" data-id="${p.id}">
-      <div class="card-media">
-        <img src="${p.image}" alt="${p.title}" loading="lazy">
-        <button class="qv-btn" onclick="openQuickView('${p.id}')">Quick View</button>
-      </div>
-      <div class="card-body">
-        <span class="card-tag">Handmade • Glass Beads</span>
-        <h3>${p.title}</h3>
-        <p style="font-size:13.5px;color:var(--ink-soft);">${p.desc}</p>
-        <div class="price-row">
-          <span class="price">${p.price} EGP</span>
+  grid.innerHTML = products.map((p, pIndex) => {
+    const hasMultiple = p.images.length > 1;
+    return `
+      <div class="card" data-id="${p.id}" id="card-${p.id}">
+        <div class="card-media" id="media-${p.id}">
+          <img src="${p.images[0]}" alt="${p.title}" id="img-${p.id}" onerror="handleImgError(this)">
+          ${hasMultiple ? `
+            <button class="slide-btn slide-prev" onclick="slideCard('${p.id}', -1, event)">❮</button>
+            <button class="slide-btn slide-next" onclick="slideCard('${p.id}', 1, event)">❯</button>
+            <div class="slide-indicators">
+              ${p.images.map((_, i) => `<div class="slide-dot ${i === 0 ? 'active' : ''}" id="dot-${p.id}-${i}"></div>`).join('')}
+            </div>
+          ` : ''}
+          <button class="qv-btn" onclick="openQuickView('${p.id}')">Quick View</button>
         </div>
-        <div class="card-actions">
-          <button class="add-btn" onclick="addToCart('${p.id}')">Add to Bag</button>
-          <a class="wa-btn" href="https://wa.me/${whatsappPhone}?text=Hello,%20I%20want%20to%20order%20${encodeURIComponent(p.title)}%20(${p.price}%20EGP)" target="_blank" title="Order via WhatsApp">
-            <svg viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm.01 18.07c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.3c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.83c.01 4.54-3.69 8.23-8.22 8.23zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.14.17-.25.25-.41.08-.17.04-.31-.02-.43s-.56-1.34-.76-1.84c-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.22.25-.86.84-.86 2.05 0 1.21.88 2.38 1 2.55.12.17 1.74 2.66 4.21 3.73.59.25 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.07-.11-.23-.17-.47-.3z"/></svg>
-            Order
-          </a>
+        <div class="card-body">
+          <span class="card-tag">Handmade • Glass Beads</span>
+          <h3>${p.title}</h3>
+          <p style="font-size:13.5px;color:var(--ink-soft);">${p.desc}</p>
+          <div class="price-row">
+            <span class="price">${p.price} EGP</span>
+          </div>
+          <div class="card-actions">
+            <button class="add-btn" onclick="addToCart('${p.id}')">Add to Bag</button>
+            <a class="wa-btn" href="https://wa.me/${whatsappPhone}?text=Hello,%20I%20want%20to%20order%20${encodeURIComponent(p.title)}%20(${p.price}%20EGP)" target="_blank" title="Order via WhatsApp">
+              <svg viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm.01 18.07c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.3c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.83c.01 4.54-3.69 8.23-8.22 8.23zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.14.17-.25.25-.41.08-.17.04-.31-.02-.43s-.56-1.34-.76-1.84c-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.22.25-.86.84-.86 2.05 0 1.21.88 2.38 1 2.55.12.17 1.74 2.66 4.21 3.73.59.25 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.07-.11-.23-.17-.47-.3z"/></svg>
+              Order
+            </a>
+          </div>
         </div>
       </div>
-    </div>
-  `).join('');
+    `;
+  }).join('');
+
+  // معالجة أسماء الصور إذا تغير امتدادها أو حذفت علامات الاقتباس
+  function handleImgError(img) {
+    let src = img.getAttribute('src');
+    if (src.includes('`')) {
+      img.src = src.replace(/`/g, '');
+    } else if (src.endsWith('.jpeg.jpeg')) {
+      img.src = src.replace('.jpeg.jpeg', '.jpeg');
+    }
+  }
+
+  // تتبع فهرس السلايدر لكل كارت منتج
+  const cardSlideIndex = {};
+  products.forEach(p => cardSlideIndex[p.id] = 0);
+
+  function slideCard(productId, direction, event) {
+    if (event) event.stopPropagation();
+    const product = products.find(p => p.id === productId);
+    if (!product || product.images.length <= 1) return;
+
+    let index = cardSlideIndex[productId] + direction;
+    if (index < 0) index = product.images.length - 1;
+    if (index >= product.images.length) index = 0;
+
+    cardSlideIndex[productId] = index;
+    const imgEl = document.getElementById(`img-${productId}`);
+    imgEl.style.opacity = '0.3';
+    setTimeout(() => {
+      imgEl.src = product.images[index];
+      imgEl.style.opacity = '1';
+    }, 150);
+
+    // تحديث النقاط الدلالية (Dots)
+    product.images.forEach((_, i) => {
+      const dot = document.getElementById(`dot-${productId}-${i}`);
+      if (dot) dot.classList.toggle('active', i === index);
+    });
+  }
 
   // Style Moods and Instagram Items
   document.getElementById('moods-strip').innerHTML = products.slice(0, 6).map((p, idx) => `
     <div class="mood-card">
-      <img src="${p.image}" alt="${p.title}" loading="lazy">
+      <img src="${p.images[0]}" alt="${p.title}" onerror="handleImgError(this)" loading="lazy">
       <div class="mood-label">
         <span class="eyebrow">Style 0${idx+1}</span>
         <h4>${p.title}</h4>
@@ -907,24 +1013,56 @@
 
   document.getElementById('insta-grid').innerHTML = products.slice(0, 4).map(p => `
     <div class="insta-item">
-      <img src="${p.image}" alt="${p.title}" loading="lazy">
+      <img src="${p.images[0]}" alt="${p.title}" onerror="handleImgError(this)" loading="lazy">
       <span class="tag">#hozi</span>
     </div>
   `).join('');
 
-  // Quick View Functions
+  // Quick View مع دعم تقليب الصور
   function openQuickView(id) {
     currentProduct = products.find(p => p.id === id);
     currentQty = 1;
-    document.getElementById('qv-img').src = currentProduct.image;
+    currentQvSlide = 0;
+
     document.getElementById('qv-title').innerText = currentProduct.title;
     document.getElementById('qv-price').innerText = currentProduct.price + " EGP";
     document.getElementById('qv-desc').innerText = currentProduct.desc;
     document.getElementById('qty-val').innerText = currentQty;
     document.getElementById('qv-wa-btn').href = `https://wa.me/${whatsappPhone}?text=Hello,%20I%20want%20to%20order%20${encodeURIComponent(currentProduct.title)}%20(${currentProduct.price}%20EGP)`;
-    
+
+    updateQvImage();
+
+    const hasMultiple = currentProduct.images.length > 1;
+    document.getElementById('qv-prev-btn').style.display = hasMultiple ? 'flex' : 'none';
+    document.getElementById('qv-next-btn').style.display = hasMultiple ? 'flex' : 'none';
+    const indicators = document.getElementById('qv-indicators');
+    if (hasMultiple) {
+      indicators.style.display = 'flex';
+      indicators.innerHTML = currentProduct.images.map((_, i) => `<div class="slide-dot ${i === 0 ? 'active' : ''}" id="qv-dot-${i}"></div>`).join('');
+    } else {
+      indicators.style.display = 'none';
+    }
+
     document.getElementById('scrim').classList.add('show');
     document.getElementById('qv-modal').classList.add('show');
+  }
+
+  function updateQvImage() {
+    const imgEl = document.getElementById('qv-img');
+    imgEl.src = currentProduct.images[currentQvSlide];
+    handleImgError(imgEl);
+    currentProduct.images.forEach((_, i) => {
+      const dot = document.getElementById(`qv-dot-${i}`);
+      if (dot) dot.classList.toggle('active', i === currentQvSlide);
+    });
+  }
+
+  function slideQuickView(direction) {
+    if (!currentProduct || currentProduct.images.length <= 1) return;
+    currentQvSlide += direction;
+    if (currentQvSlide < 0) currentQvSlide = currentProduct.images.length - 1;
+    if (currentQvSlide >= currentProduct.images.length) currentQvSlide = 0;
+    updateQvImage();
   }
 
   document.getElementById('qv-close').onclick = () => {
@@ -980,7 +1118,7 @@
     } else {
       itemsContainer.innerHTML = cart.map(item => `
         <div class="cart-item">
-          <img src="${item.image}" alt="${item.title}">
+          <img src="${item.images[0]}" alt="${item.title}" onerror="handleImgError(this)">
           <div class="ci-info">
             <div class="ci-name">${item.title}</div>
             <div class="ci-price">${item.price} EGP × ${item.qty}</div>
