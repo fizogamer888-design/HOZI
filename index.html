@@ -240,27 +240,26 @@
     width:100%;
     height:100%;
     object-fit:cover;
-    transition:transform .4s var(--ease), opacity .3s ease;
+    transition:opacity .25s ease;
   }
-  .card:hover .card-media img{transform:scale(1.04);}
 
-  /* SLIDER ARROWS FOR CARDS & QUICK VIEW */
+  /* Slider Navigation */
   .slide-btn{
     position:absolute;
     top:50%;
     transform:translateY(-50%);
-    width:34px;
-    height:34px;
-    background:rgba(255,255,255,0.85);
+    width:36px;
+    height:36px;
+    background:rgba(255,255,255,0.92);
     border-radius:50%;
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:15px;
+    font-size:16px;
     color:var(--ink);
     cursor:pointer;
     z-index:10;
-    box-shadow:0 2px 8px rgba(0,0,0,0.15);
+    box-shadow:0 3px 10px rgba(0,0,0,0.18);
     transition:background .2s, transform .2s;
   }
   .slide-btn:hover{
@@ -280,15 +279,15 @@
     z-index:10;
   }
   .slide-dot{
-    width:7px;
-    height:7px;
+    width:8px;
+    height:8px;
     border-radius:50%;
     background:rgba(255,255,255,0.55);
     transition:all .3s ease;
   }
   .slide-dot.active{
     background:var(--ink);
-    width:16px;
+    width:18px;
     border-radius:10px;
   }
 
@@ -534,7 +533,7 @@
 <header id="site-header" class="on-hero">
   <div class="wrap nav-row">
     <a href="#hero" class="brand">
-      <img src="logo.jpg" alt="" class="brand-logo" onerror="if(!this.triedPng){this.triedPng=true;this.src='logo.png.jpeg';}else{this.style.display='none';}">
+      <img src="logo.jpg" alt="" class="brand-logo" onerror="if(!this.triedOther){this.triedOther=true;this.src='logo.png.jpeg';}else{this.style.display='none';}">
       <span>HOZI</span>
     </a>
     <nav aria-label="Primary">
@@ -707,7 +706,7 @@
     <div class="foot-grid">
       <div class="foot-brand">
         <div class="brand">
-          <img src="logo.jpg" alt="" class="brand-logo" onerror="if(!this.triedPng){this.triedPng=true;this.src='logo.png.jpeg';}else{this.style.display='none';}">
+          <img src="logo.jpg" alt="" class="brand-logo" onerror="if(!this.triedOther){this.triedOther=true;this.src='logo.png.jpeg';}else{this.style.display='none';}">
           <span>HOZI</span>
         </div>
         <p>Handmade glass chains, designed and crafted in Egypt. Minimal, delicate, timeless.</p>
@@ -747,7 +746,7 @@
 <!-- Modals -->
 <div class="scrim" id="scrim"></div>
 
-<!-- Quick View Modal (مع خاصية السلايدر أيضاً) -->
+<!-- Quick View Modal -->
 <div id="qv-modal">
   <button class="qv-close" id="qv-close" aria-label="Close">✕</button>
   <div class="qv-layout">
@@ -854,25 +853,25 @@
 <div class="toast" id="toast">Added to bag</div>
 
 <script>
-  // قائمة المنتجات مع دعم مصفوفة الصور (images) لخاصية الـ Slider
+  // المنتجات المرفوعة فعلياً في المستودع الآن فقط
   const products = [
     {
       id: "item1",
       title: "Double-Angle Illusion Drop I",
       price: 150,
       images: [
-        "`item1_a.jpeg`.jpeg",
-        "`item1_b.jpeg`.jpeg"
+        encodeURIComponent("`item1_a.jpeg`.jpeg"),
+        encodeURIComponent("`item1_b.jpeg`.jpeg")
       ],
-      desc: "Delicate glass crystal drop choker shown from multiple stunning angles."
+      desc: "Delicate glass crystal drop choker shown from multiple angles."
     },
     {
       id: "item2",
       title: "Double-Angle Illusion Drop II",
       price: 160,
       images: [
-        "`item2_a.jpeg`.jpeg",
-        "`item2_b.jpeg`.jpeg"
+        encodeURIComponent("`item2_a.jpeg`.jpeg"),
+        encodeURIComponent("`item2_b.jpeg`.jpeg")
       ],
       desc: "Floating transparent necklace crafted with precision and pure glass elements."
     },
@@ -926,14 +925,24 @@
   let currentQty = 1;
   let currentQvSlide = 0;
 
-  // Render Products Grid مع السلايدر
+  // دالة أمان لمعالجة الروابط
+  function fixImgFallback(img) {
+    let src = img.getAttribute('src');
+    if (src.includes('%60')) {
+      img.src = decodeURIComponent(src).replace(/`/g, '');
+    } else if (src.endsWith('.jpeg.jpeg')) {
+      img.src = src.replace('.jpeg.jpeg', '.jpeg');
+    }
+  }
+
+  // Render Products Grid
   const grid = document.getElementById('product-grid');
-  grid.innerHTML = products.map((p, pIndex) => {
+  grid.innerHTML = products.map((p) => {
     const hasMultiple = p.images.length > 1;
     return `
       <div class="card" data-id="${p.id}" id="card-${p.id}">
         <div class="card-media" id="media-${p.id}">
-          <img src="${p.images[0]}" alt="${p.title}" id="img-${p.id}" onerror="handleImgError(this)">
+          <img src="${p.images[0]}" alt="${p.title}" id="img-${p.id}" onerror="fixImgFallback(this)">
           ${hasMultiple ? `
             <button class="slide-btn slide-prev" onclick="slideCard('${p.id}', -1, event)">❮</button>
             <button class="slide-btn slide-next" onclick="slideCard('${p.id}', 1, event)">❯</button>
@@ -962,17 +971,6 @@
     `;
   }).join('');
 
-  // معالجة أسماء الصور إذا تغير امتدادها أو حذفت علامات الاقتباس
-  function handleImgError(img) {
-    let src = img.getAttribute('src');
-    if (src.includes('`')) {
-      img.src = src.replace(/`/g, '');
-    } else if (src.endsWith('.jpeg.jpeg')) {
-      img.src = src.replace('.jpeg.jpeg', '.jpeg');
-    }
-  }
-
-  // تتبع فهرس السلايدر لكل كارت منتج
   const cardSlideIndex = {};
   products.forEach(p => cardSlideIndex[p.id] = 0);
 
@@ -991,19 +989,18 @@
     setTimeout(() => {
       imgEl.src = product.images[index];
       imgEl.style.opacity = '1';
-    }, 150);
+    }, 120);
 
-    // تحديث النقاط الدلالية (Dots)
     product.images.forEach((_, i) => {
       const dot = document.getElementById(`dot-${productId}-${i}`);
       if (dot) dot.classList.toggle('active', i === index);
     });
   }
 
-  // Style Moods and Instagram Items
+  // Style Moods and Instagram
   document.getElementById('moods-strip').innerHTML = products.slice(0, 6).map((p, idx) => `
     <div class="mood-card">
-      <img src="${p.images[0]}" alt="${p.title}" onerror="handleImgError(this)" loading="lazy">
+      <img src="${p.images[0]}" alt="${p.title}" onerror="fixImgFallback(this)" loading="lazy">
       <div class="mood-label">
         <span class="eyebrow">Style 0${idx+1}</span>
         <h4>${p.title}</h4>
@@ -1013,12 +1010,12 @@
 
   document.getElementById('insta-grid').innerHTML = products.slice(0, 4).map(p => `
     <div class="insta-item">
-      <img src="${p.images[0]}" alt="${p.title}" onerror="handleImgError(this)" loading="lazy">
+      <img src="${p.images[0]}" alt="${p.title}" onerror="fixImgFallback(this)" loading="lazy">
       <span class="tag">#hozi</span>
     </div>
   `).join('');
 
-  // Quick View مع دعم تقليب الصور
+  // Quick View Functions
   function openQuickView(id) {
     currentProduct = products.find(p => p.id === id);
     currentQty = 1;
@@ -1050,7 +1047,7 @@
   function updateQvImage() {
     const imgEl = document.getElementById('qv-img');
     imgEl.src = currentProduct.images[currentQvSlide];
-    handleImgError(imgEl);
+    fixImgFallback(imgEl);
     currentProduct.images.forEach((_, i) => {
       const dot = document.getElementById(`qv-dot-${i}`);
       if (dot) dot.classList.toggle('active', i === currentQvSlide);
@@ -1118,7 +1115,7 @@
     } else {
       itemsContainer.innerHTML = cart.map(item => `
         <div class="cart-item">
-          <img src="${item.images[0]}" alt="${item.title}" onerror="handleImgError(this)">
+          <img src="${item.images[0]}" alt="${item.title}" onerror="fixImgFallback(this)">
           <div class="ci-info">
             <div class="ci-name">${item.title}</div>
             <div class="ci-price">${item.price} EGP × ${item.qty}</div>
