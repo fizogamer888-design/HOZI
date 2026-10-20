@@ -39,7 +39,7 @@
     -webkit-font-smoothing:antialiased;
     overflow-x:hidden;
   }
-  img{max-width:100%;display:block;}
+  img{max-width:100%;display:block;user-select:none;-webkit-user-drag:none;}
   a{color:inherit;text-decoration:none;}
   button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;}
   h1,h2,h3,h4{font-family:'Fraunces',serif;font-weight:500;margin:0;letter-spacing:-0.01em;}
@@ -159,7 +159,7 @@
   .section-head h2{font-size:clamp(24px,3.5vw,34px);margin-top:8px;font-weight:400;}
   .section-head p{margin-top:8px;color:var(--ink-soft);font-size:13.5px;}
 
-  /* PRODUCT GRID: 2 منتجات فقط بجانب بعض */
+  /* PRODUCT GRID: 2 منتجات بجانب بعض */
   .grid-products{
     display:grid;
     grid-template-columns:repeat(2, 1fr);
@@ -185,53 +185,27 @@
     aspect-ratio:4/5;
     overflow:hidden;
     background:var(--glass);
-    cursor:pointer;
+    touch-action:pan-y; /* يسمح بالسحب الأفقي دون تعطيل التمرير العمودي */
   }
   .card-media img{
     width:100%;
     height:100%;
     object-fit:cover;
     transition:opacity .25s ease;
+    pointer-events:none;
   }
-
-  /* أسهم التنقل الشفافة غير الحاجبة للمنتج */
-  .slide-btn{
-    position:absolute;
-    top:50%;
-    transform:translateY(-50%);
-    width:28px;
-    height:28px;
-    background:rgba(255, 255, 255, 0.55);
-    backdrop-filter:blur(4px);
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:12px;
-    color:var(--ink);
-    cursor:pointer;
-    z-index:10;
-    transition:all .2s ease;
-    border:1px solid rgba(255,255,255,0.4);
-  }
-  .slide-btn:hover{
-    background:rgba(255, 255, 255, 0.95);
-    transform:translateY(-50%) scale(1.08);
-  }
-  .slide-prev{left:6px;}
-  .slide-next{right:6px;}
 
   /* نقاط السلايدر السفلية المدمجة */
   .slide-indicators{
     position:absolute;
-    bottom:6px;
+    bottom:8px;
     left:50%;
     transform:translateX(-50%);
     display:flex;
     gap:4px;
     z-index:10;
-    background:rgba(0,0,0,0.18);
-    padding:3px 6px;
+    background:rgba(0,0,0,0.22);
+    padding:3px 7px;
     border-radius:10px;
     backdrop-filter:blur(2px);
   }
@@ -320,8 +294,8 @@
   .qv-close{position:absolute;top:12px;right:12px;background:var(--white);width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:20;border:1px solid var(--line);font-size:13px;}
   .qv-layout{display:grid;grid-template-columns:1fr 1fr;}
   @media(max-width:600px){.qv-layout{grid-template-columns:1fr;}}
-  .qv-media{position:relative;aspect-ratio:4/5;overflow:hidden;background:var(--glass);}
-  .qv-media img{width:100%;height:100%;object-fit:cover;}
+  .qv-media{position:relative;aspect-ratio:4/5;overflow:hidden;background:var(--glass);touch-action:pan-y;}
+  .qv-media img{width:100%;height:100%;object-fit:cover;pointer-events:none;}
   .qv-content{padding:20px;display:flex;flex-direction:column;gap:10px;}
   .qv-content h3{font-size:18px;}
   .qv-content .price-row{margin-top:2px;}
@@ -431,13 +405,13 @@
   </div>
 </section>
 
-<!-- PRODUCTS SECTION: منتجين اثنين فقط -->
+<!-- PRODUCTS SECTION -->
 <section id="shop">
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">Our Collection</span>
       <h2>Handmade Glass Drops</h2>
-      <p>Tap the arrows on the edges to explore different angles.</p>
+      <p>Swipe on the images to view angles.</p>
     </div>
     <div class="grid-products" id="product-grid"></div>
   </div>
@@ -511,9 +485,7 @@
   <div class="qv-layout">
     <div class="qv-media" id="qv-media-container">
       <img id="qv-img" src="" alt="">
-      <button class="slide-btn slide-prev" id="qv-prev-btn" onclick="slideQuickView(-1)">❮</button>
-      <button class="slide-btn slide-next" id="qv-next-btn" onclick="slideQuickView(1)">❯</button>
-      <div class="slide-indicators" id="qv-indicators"></div>
+      <div class="slide-indicators" id="qv-indicators" style="display:none;"></div>
     </div>
     <div class="qv-content">
       <span class="eyebrow" id="qv-badge">Handmade</span>
@@ -591,7 +563,7 @@
 <div class="toast" id="toast">Added to bag</div>
 
 <script>
-  // المنتجان فقط مع زاويتين لكل منتج
+  // قائمة المنتجات مع دعم كافة العناصر الموجودة بالمستودع
   const products = [
     {
       id: "item1",
@@ -612,6 +584,48 @@
         encodeURIComponent("`item2_b.jpeg`.jpeg")
       ],
       desc: "Floating transparent necklace crafted with precision and pure glass elements."
+    },
+    {
+      id: "product1",
+      title: "Single Floating Bead Choker",
+      price: 120,
+      images: ["product1.jpg.jpeg"],
+      desc: "A pure minimal glass sphere resting delicately in the center of the collarbone."
+    },
+    {
+      id: "product4",
+      title: "Triple Drop Pendant Choker",
+      price: 140,
+      images: ["product4.jpg.jpeg"],
+      desc: "Three vertically aligned crystal drops offering an elongated silhouette."
+    },
+    {
+      id: "product5",
+      title: "Triple Horizontal Bead Choker",
+      price: 130,
+      images: ["product5.jpg.jpeg"],
+      desc: "Three perfectly spaced glass drops creating a subtle floating water-droplet illusion."
+    },
+    {
+      id: "product6",
+      title: "Single Y-Drop Choker",
+      price: 120,
+      images: ["product6.jpg.jpeg"],
+      desc: "Minimalist transparent choker featuring an elegant hanging teardrop."
+    },
+    {
+      id: "product8",
+      title: "Double Layer Geometric Droplet",
+      price: 150,
+      images: ["product8.jpg.jpeg"],
+      desc: "Two shimmering delicate tiers crowned with a focal pyramid drop crystal."
+    },
+    {
+      id: "product9",
+      title: "Floating Pebble Choker",
+      price: 125,
+      images: ["product9.jpg.jpeg"],
+      desc: "Rhythmically spaced flat crystal beads catching soft reflections along the neckline."
     }
   ];
 
@@ -630,18 +644,19 @@
     }
   }
 
-  // بناء الكروت النظيفة
+  // بناء الكروت بدون أسهم مع نقاط فقط
   const grid = document.getElementById('product-grid');
   grid.innerHTML = products.map((p) => {
+    const hasMultiple = p.images.length > 1;
     return `
       <div class="card" data-id="${p.id}" id="card-${p.id}">
-        <div class="card-media" id="media-${p.id}" onclick="openQuickView('${p.id}')">
+        <div class="card-media" id="media-${p.id}">
           <img src="${p.images[0]}" alt="${p.title}" id="img-${p.id}" onerror="fixImgFallback(this)">
-          <button class="slide-btn slide-prev" onclick="slideCard('${p.id}', -1, event)">❮</button>
-          <button class="slide-btn slide-next" onclick="slideCard('${p.id}', 1, event)">❯</button>
-          <div class="slide-indicators">
-            ${p.images.map((_, i) => `<div class="slide-dot ${i === 0 ? 'active' : ''}" id="dot-${p.id}-${i}"></div>`).join('')}
-          </div>
+          ${hasMultiple ? `
+            <div class="slide-indicators">
+              ${p.images.map((_, i) => `<div class="slide-dot ${i === 0 ? 'active' : ''}" id="dot-${p.id}-${i}"></div>`).join('')}
+            </div>
+          ` : ''}
         </div>
         <div class="card-body">
           <span class="card-tag">Handmade • Glass Beads</span>
@@ -666,28 +681,75 @@
   const cardSlideIndex = {};
   products.forEach(p => cardSlideIndex[p.id] = 0);
 
-  function slideCard(productId, direction, event) {
-    if (event) event.stopPropagation();
+  function slideTo(productId, index) {
     const product = products.find(p => p.id === productId);
     if (!product || product.images.length <= 1) return;
-
-    let index = cardSlideIndex[productId] + direction;
     if (index < 0) index = product.images.length - 1;
     if (index >= product.images.length) index = 0;
 
     cardSlideIndex[productId] = index;
     const imgEl = document.getElementById(`img-${productId}`);
-    imgEl.style.opacity = '0.3';
+    imgEl.style.opacity = '0.35';
     setTimeout(() => {
       imgEl.src = product.images[index];
       imgEl.style.opacity = '1';
-    }, 100);
+    }, 110);
 
     product.images.forEach((_, i) => {
       const dot = document.getElementById(`dot-${productId}-${i}`);
       if (dot) dot.classList.toggle('active', i === index);
     });
   }
+
+  // تفعيل السحب باللمس (Touch Swipe) والماوس
+  products.forEach(p => {
+    if (p.images.length <= 1) return;
+    const container = document.getElementById(`media-${p.id}`);
+    if (!container) return;
+
+    let startX = 0;
+    let startY = 0;
+
+    // لمس الموبايل
+    container.addEventListener('touchstart', (e) => {
+      startX = e.changedTouches[0].screenX;
+      startY = e.changedTouches[0].screenY;
+    }, { passive: true });
+
+    container.addEventListener('touchend', (e) => {
+      let diffX = e.changedTouches[0].screenX - startX;
+      let diffY = e.changedTouches[0].screenY - startY;
+
+      // التأكد أن الحركة أفقية وليست تمرير عمودي للصفحة
+      if (Math.abs(diffX) > 35 && Math.abs(diffX) > Math.abs(diffY)) {
+        if (diffX < 0) {
+          slideTo(p.id, cardSlideIndex[p.id] + 1); // سحب لليسار
+        } else {
+          slideTo(p.id, cardSlideIndex[p.id] - 1); // سحب لليمين
+        }
+      }
+    }, { passive: true });
+
+    // سحب الماوس للكمبيوتر
+    let isDown = false;
+    container.addEventListener('mousedown', (e) => {
+      isDown = true;
+      startX = e.clientX;
+    });
+    container.addEventListener('mouseup', (e) => {
+      if (!isDown) return;
+      isDown = false;
+      let diffX = e.clientX - startX;
+      if (Math.abs(diffX) > 35) {
+        if (diffX < 0) {
+          slideTo(p.id, cardSlideIndex[p.id] + 1);
+        } else {
+          slideTo(p.id, cardSlideIndex[p.id] - 1);
+        }
+      }
+    });
+    container.addEventListener('mouseleave', () => isDown = false);
+  });
 
   // Quick View Functions
   function openQuickView(id) {
@@ -704,7 +766,12 @@
     updateQvImage();
 
     const indicators = document.getElementById('qv-indicators');
-    indicators.innerHTML = currentProduct.images.map((_, i) => `<div class="slide-dot ${i === 0 ? 'active' : ''}" id="qv-dot-${i}"></div>`).join('');
+    if (currentProduct.images.length > 1) {
+      indicators.style.display = 'flex';
+      indicators.innerHTML = currentProduct.images.map((_, i) => `<div class="slide-dot ${i === 0 ? 'active' : ''}" id="qv-dot-${i}"></div>`).join('');
+    } else {
+      indicators.style.display = 'none';
+    }
 
     document.getElementById('scrim').classList.add('show');
     document.getElementById('qv-modal').classList.add('show');
@@ -720,13 +787,24 @@
     });
   }
 
-  function slideQuickView(direction) {
+  // دعم السحب أيضاً داخل Quick View
+  const qvContainer = document.getElementById('qv-media-container');
+  let qvStartX = 0;
+  qvContainer.addEventListener('touchstart', (e) => {
+    qvStartX = e.changedTouches[0].screenX;
+  }, { passive: true });
+  qvContainer.addEventListener('touchend', (e) => {
     if (!currentProduct || currentProduct.images.length <= 1) return;
-    currentQvSlide += direction;
-    if (currentQvSlide < 0) currentQvSlide = currentProduct.images.length - 1;
-    if (currentQvSlide >= currentProduct.images.length) currentQvSlide = 0;
-    updateQvImage();
-  }
+    let diffX = e.changedTouches[0].screenX - qvStartX;
+    if (Math.abs(diffX) > 35) {
+      if (diffX < 0) {
+        currentQvSlide = (currentQvSlide + 1) % currentProduct.images.length;
+      } else {
+        currentQvSlide = (currentQvSlide - 1 + currentProduct.images.length) % currentProduct.images.length;
+      }
+      updateQvImage();
+    }
+  }, { passive: true });
 
   document.getElementById('qv-close').onclick = () => {
     document.getElementById('qv-modal').classList.remove('show');
@@ -777,7 +855,7 @@
 
     const itemsContainer = document.getElementById('cart-items');
     if (cart.length === 0) {
-      itemsContainer.innerHTML = '<div class="cart-empty" style="text-align:center;padding:30px 0;font-size:13px;color:var(--ink-soft);">Your bag is empty.</div>';
+      itemsContainer.innerHTML = '<div style="text-align:center;padding:30px 0;font-size:13px;color:var(--ink-soft);">Your bag is empty.</div>';
     } else {
       itemsContainer.innerHTML = cart.map(item => `
         <div class="cart-item">
