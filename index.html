@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=760">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HOZI | Glass Chains, Handmade</title>
 <meta name="description" content="Handmade glass-bead chains designed to make your everyday style stand out. Unique, affordable, made for Egypt. Cash on Delivery available.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,8 +20,8 @@
     --blush:#CDA79A;
     --line:#D9D2C3;
     --white:#FFFFFF;
-    --radius:22px;
-    --radius-sm:12px;
+    --radius:18px;
+    --radius-sm:10px;
     --shadow:0 18px 40px -22px rgba(34,31,27,0.35);
     --ease:cubic-bezier(.22,1,.36,1);
     --wa-color:#25D366;
@@ -31,13 +31,13 @@
   html{scroll-behavior:smooth;}
   body{
     margin:0;
-    min-width:760px;
     background:var(--paper);
     color:var(--ink);
     font-family:'Manrope',sans-serif;
     font-size:15px;
     line-height:1.5;
     -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
   }
   img{max-width:100%;display:block;}
   a{color:inherit;text-decoration:none;}
@@ -51,14 +51,50 @@
     text-transform:uppercase;
     color:var(--water-deep);
   }
-  .wrap{width:760px;max-width:760px;margin:0 auto;padding:0 20px;}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 24px;}
+  @media(max-width:600px){.wrap{padding:0 12px;}}
   .visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;}
   :focus-visible{outline:2px solid var(--water);outline-offset:3px;}
+
+  /* THREAD — signature scroll element */
+  #thread-rail{
+    position:fixed;
+    left:18px;
+    top:0;
+    bottom:0;
+    width:26px;
+    z-index:5;
+    pointer-events:none;
+    display:flex;
+    align-items:center;
+  }
+  #thread-rail svg{height:100%;width:100%;overflow:visible;}
+  #thread-line{
+    stroke:var(--line);
+    stroke-width:1.4;
+    fill:none;
+  }
+  #thread-progress{
+    stroke:var(--water);
+    stroke-width:1.4;
+    fill:none;
+    stroke-dasharray:2000;
+    stroke-dashoffset:2000;
+    transition:stroke-dashoffset .1s linear;
+  }
+  .thread-bead{
+    fill:var(--glass);
+    stroke:var(--ink);
+    stroke-opacity:.15;
+    stroke-width:1;
+    transition:fill .4s var(--ease), r .4s var(--ease);
+  }
+  .thread-bead.lit{fill:var(--blush);}
+  @media(max-width:900px){#thread-rail{display:none;}}
 
   /* NAV */
   header{
     position:fixed;top:0;left:0;right:0;z-index:50;
-    min-width:760px;
     padding:14px 0;
     transition:background .35s var(--ease), padding .35s var(--ease), box-shadow .35s var(--ease), border-color .35s var(--ease);
     border-bottom:1px solid transparent;
@@ -93,7 +129,7 @@
   header:not(.solid).on-hero .brand,
   header:not(.solid).on-hero .navlinks a,
   header:not(.solid).on-hero .navicons button{color:#fff;}
-  .navlinks{display:flex;gap:22px;list-style:none;margin:0;padding:0;}
+  .navlinks{display:flex;gap:24px;list-style:none;margin:0;padding:0;}
   .navlinks a{
     font-size:13.5px;font-weight:600;letter-spacing:.02em;
     position:relative;padding-bottom:3px;
@@ -108,11 +144,24 @@
     display:flex;align-items:center;justify-content:center;padding:0 2px;
   }
   .menu-btn{display:none;}
+  @media(max-width:860px){
+    .navlinks{display:none;}
+    .menu-btn{display:flex;}
+  }
+
+  /* mobile menu drawer */
+  #mobile-menu{
+    position:fixed;inset:0;background:var(--ink);color:var(--paper);
+    z-index:90;transform:translateX(100%);transition:transform .45s var(--ease);
+    display:flex;flex-direction:column;justify-content:center;padding:40px;
+  }
+  #mobile-menu.open{transform:translateX(0);}
+  #mobile-menu a{font-family:'Fraunces',serif;font-size:30px;padding:12px 0;border-bottom:1px solid rgba(246,244,239,.15);}
+  #mobile-menu .close-menu{position:absolute;top:24px;right:28px;font-size:14px;letter-spacing:.1em;text-transform:uppercase;font-family:'IBM Plex Mono',monospace;}
 
   /* HERO */
   .hero{
     position:relative;min-height:85vh;
-    min-width:760px;
     display:flex;align-items:flex-end;
     color:#fff;overflow:hidden;
   }
@@ -123,10 +172,10 @@
     background:linear-gradient(180deg,rgba(20,22,20,.2) 0%, rgba(20,22,20,.1) 40%, rgba(20,20,18,.75) 100%);
   }
   .hero-inner{position:relative;z-index:1;width:100%;padding:0 24px 64px;}
-  .hero-eyebrow{color:rgba(255,255,255,.85);font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+  .hero-eyebrow{color:rgba(255,255,255,.85);font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.18em;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
   .hero-eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--blush);}
   .hero h1{
-    font-size:54px;
+    font-size:clamp(38px,6.5vw,70px);
     font-weight:400;line-height:.98;max-width:14ch;
     letter-spacing:-.02em;
   }
@@ -149,21 +198,31 @@
   }
 
   /* SECTION */
-  section{padding:70px 0;position:relative;min-width:760px;}
-  .section-head{max-width:600px;margin-bottom:34px;}
-  .section-head h2{font-size:32px;margin-top:10px;font-weight:400;}
-  .section-head p{margin-top:10px;color:var(--ink-soft);font-size:14px;}
+  section{padding:70px 0;position:relative;}
+  .section-head{max-width:640px;margin-bottom:34px;}
+  .section-head h2{font-size:clamp(26px,4vw,38px);margin-top:10px;font-weight:400;}
+  .section-head p{margin-top:10px;color:var(--ink-soft);font-size:14.5px;}
 
-  /* 3 PRODUCTS IN A ROW - EXACT AS DESKTOP */
+  /* PRODUCT GRID: 3 للكمبيوتر و 2 واضحة وقريبة للموبايل */
   .grid-products{
     display:grid;
     grid-template-columns:repeat(3, 1fr);
-    gap:16px;
+    gap:22px;
   }
+  @media(max-width:768px){
+    .grid-products{
+      grid-template-columns:repeat(2, 1fr);
+      gap:12px;
+    }
+  }
+
   .card{
-    background:var(--white);border-radius:18px;overflow:hidden;
+    background:var(--white);
+    border-radius:var(--radius);
+    overflow:hidden;
     border:1px solid var(--line);
-    display:flex;flex-direction:column;
+    display:flex;
+    flex-direction:column;
     box-shadow:0 6px 18px rgba(34,31,27,0.04);
   }
   .card-media{
@@ -248,23 +307,32 @@
   }
   .wa-btn svg{width:14px;height:14px;fill:currentColor;}
 
+  @media(max-width:500px){
+    .card-body{padding:10px;}
+    .card-body h3{font-size:13.5px;}
+    .card-actions{flex-direction:column;gap:4px;}
+    .add-btn, .wa-btn{padding:8px;font-size:11px;}
+  }
+
   /* WHY */
   .why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;}
-  .why-item{background:var(--paper);padding:22px 16px;}
+  @media(max-width:900px){.why-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:560px){.why-grid{grid-template-columns:1fr;}}
+  .why-item{background:var(--paper);padding:24px 18px;}
   .why-num{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--water-deep);}
-  .why-item h3{font-size:16px;margin-top:8px;font-weight:600;}
-  .why-item p{margin-top:6px;color:var(--ink-soft);font-size:13px;}
+  .why-item h3{font-size:17px;margin-top:8px;font-weight:600;}
+  .why-item p{margin-top:6px;color:var(--ink-soft);font-size:13.5px;}
 
   /* STYLE / MOODS */
-  .moods-wrap{background:var(--ink);color:var(--paper);border-radius:var(--radius);padding:40px 10px 10px;overflow:hidden;}
+  .moods-wrap{background:var(--ink);color:var(--paper);border-radius:var(--radius);padding:44px 12px 12px;overflow:hidden;}
   .moods-head{padding:0 20px 24px;}
   .moods-head .eyebrow{color:var(--glass-deep);}
   .moods-head h2{color:var(--paper);font-size:28px;}
   .moods-head p{color:rgba(246,244,239,.68);font-size:13.5px;}
   .moods-strip{display:flex;gap:12px;overflow-x:auto;padding:0 10px 20px;}
   .mood-card{
-    flex:0 0 190px;
-    border-radius:14px;overflow:hidden;background:#2b2823;position:relative;height:250px;
+    flex:0 0 200px;
+    border-radius:14px;overflow:hidden;background:#2b2823;position:relative;height:260px;
   }
   .mood-card img{width:100%;height:100%;object-fit:cover;opacity:.88;}
   .mood-label{
@@ -275,20 +343,22 @@
   .mood-label h4{color:#fff;font-size:15px;margin-top:2px;font-weight:500;}
 
   /* REVIEWS */
-  .reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+  .reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  @media(max-width:860px){.reviews-grid{grid-template-columns:1fr;}}
   .review-card{
     background:var(--white);border:1px solid var(--line);border-radius:var(--radius);
     padding:20px;display:flex;flex-direction:column;gap:12px;
   }
   .stars{color:var(--water-deep);font-size:12px;letter-spacing:1px;}
-  .review-card p.quote{font-family:'Fraunces',serif;font-size:14.5px;font-style:italic;line-height:1.45;}
+  .review-card p.quote{font-family:'Fraunces',serif;font-size:15px;font-style:italic;line-height:1.45;}
   .review-who{display:flex;align-items:center;gap:8px;margin-top:auto;}
   .avatar{width:30px;height:30px;border-radius:50%;background:var(--glass);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--water-deep);}
-  .review-who .name{font-weight:700;font-size:12.5px;}
+  .review-who .name{font-weight:700;font-size:13px;}
   .review-who .loc{font-size:11.5px;color:var(--ink-soft);}
 
   /* INSTAGRAM */
   .insta-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+  @media(max-width:760px){.insta-grid{grid-template-columns:repeat(2,1fr);}}
   .insta-item{aspect-ratio:1/1;overflow:hidden;border-radius:12px;position:relative;}
   .insta-item img{width:100%;height:100%;object-fit:cover;}
   .insta-item .tag{position:absolute;bottom:6px;left:6px;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:9.5px;background:rgba(0,0,0,.4);padding:3px 6px;border-radius:100px;}
@@ -303,8 +373,9 @@
   .final-cta .btn{margin-top:20px;}
 
   /* FOOTER */
-  footer{border-top:1px solid var(--line);padding:40px 0 20px;margin-top:24px;min-width:760px;}
+  footer{border-top:1px solid var(--line);padding:40px 0 20px;margin-top:24px;}
   .foot-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:24px;}
+  @media(max-width:760px){.foot-grid{grid-template-columns:1fr 1fr;}}
   .foot-grid h5{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:12px;}
   .foot-links{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px;}
   .foot-links a{font-size:12.5px;color:var(--ink-soft);}
@@ -326,7 +397,7 @@
   #qv-modal{
     position:fixed;z-index:95;left:50%;top:50%;
     transform:translate(-50%,-46%) scale(.97);
-    width:640px;max-height:88vh;overflow:auto;
+    width:min(680px,94vw);max-height:88vh;overflow:auto;
     background:var(--paper);border-radius:var(--radius);
     opacity:0;pointer-events:none;transition:opacity .35s var(--ease), transform .35s var(--ease);
     box-shadow:0 30px 60px -20px rgba(0,0,0,.4);
@@ -334,6 +405,7 @@
   #qv-modal.show{opacity:1;pointer-events:auto;transform:translate(-50%,-50%) scale(1);}
   .qv-close{position:absolute;top:14px;right:14px;background:var(--white);width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:20;border:1px solid var(--line);}
   .qv-layout{display:grid;grid-template-columns:1fr 1fr;}
+  @media(max-width:640px){.qv-layout{grid-template-columns:1fr;}}
   .qv-media{position:relative;aspect-ratio:1/1;overflow:hidden;background:var(--glass);}
   .qv-media img{width:100%;height:100%;object-fit:cover;}
   .qv-content{padding:24px;display:flex;flex-direction:column;gap:12px;}
@@ -349,7 +421,7 @@
 
   /* Cart drawer */
   #cart-drawer{
-    position:fixed;top:0;right:0;bottom:0;width:380px;z-index:95;
+    position:fixed;top:0;right:0;bottom:0;width:min(380px,100vw);z-index:95;
     background:var(--paper);box-shadow:-30px 0 60px -30px rgba(0,0,0,.4);
     transform:translateX(100%);transition:transform .4s var(--ease);
     display:flex;flex-direction:column;
@@ -373,7 +445,7 @@
   #checkout-modal{
     position:fixed;z-index:97;left:50%;top:50%;
     transform:translate(-50%,-46%) scale(.97);
-    width:480px;max-height:90vh;overflow:auto;
+    width:min(480px,94vw);max-height:90vh;overflow:auto;
     background:var(--paper);border-radius:var(--radius);
     opacity:0;pointer-events:none;transition:opacity .35s var(--ease), transform .35s var(--ease);
     padding:26px;
@@ -439,9 +511,22 @@
         <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 6h15l-1.5 9h-12z"/><path d="M6 6L4.5 2H2"/><circle cx="9.5" cy="20" r="1.4" fill="currentColor" stroke="none"/><circle cx="17.5" cy="20" r="1.4" fill="currentColor" stroke="none"/></svg>
         <span id="cart-count">0</span>
       </button>
+      <button aria-label="Open menu" class="menu-btn" id="menu-open">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
     </div>
   </div>
 </header>
+
+<div id="mobile-menu">
+  <button class="close-menu" id="menu-close">Close ✕</button>
+  <a href="#hero">Home</a>
+  <a href="#shop">Shop</a>
+  <a href="#why">About Us</a>
+  <a href="#moods">Style Guide</a>
+  <a href="#reviews">Reviews</a>
+  <a href="#footer">Contact</a>
+</div>
 
 <!-- HERO -->
 <section class="hero" id="hero" style="padding:0;">
@@ -798,6 +883,7 @@
     }
   }
 
+  // إنشاء الكروت
   const grid = document.getElementById('product-grid');
   grid.innerHTML = products.map((p) => {
     const hasMultiple = p.images.length > 1;
@@ -817,7 +903,7 @@
         <div class="card-body">
           <span class="card-tag">Handmade • Glass Beads</span>
           <h3>${p.title}</h3>
-          <p style="font-size:11.5px;color:var(--ink-soft);">${p.desc}</p>
+          <p style="font-size:12px;color:var(--ink-soft);">${p.desc}</p>
           <div class="price-row">
             <span class="price">${p.price} EGP</span>
           </div>
@@ -1065,6 +1151,12 @@
       header.classList.add('on-hero');
       header.classList.remove('light');
     }
+  });
+
+  document.getElementById('menu-open').onclick = () => document.getElementById('mobile-menu').classList.add('open');
+  document.getElementById('menu-close').onclick = () => document.getElementById('mobile-menu').classList.remove('open');
+  document.querySelectorAll('#mobile-menu a').forEach(a => {
+    a.onclick = () => document.getElementById('mobile-menu').classList.remove('open');
   });
 </script>
 
