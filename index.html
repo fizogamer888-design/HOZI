@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=1240">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HOZI | Glass Chains, Handmade</title>
 <meta name="description" content="Handmade glass-bead chains designed to make your everyday style stand out. Unique, affordable, made for Egypt. Cash on Delivery available.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,13 +31,13 @@
   html{scroll-behavior:smooth;}
   body{
     margin:0;
-    min-width:1240px;
     background:var(--paper);
     color:var(--ink);
     font-family:'Manrope',sans-serif;
     font-size:16px;
     line-height:1.55;
     -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
   }
   img{max-width:100%;display:block;}
   a{color:inherit;text-decoration:none;}
@@ -51,7 +51,8 @@
     text-transform:uppercase;
     color:var(--water-deep);
   }
-  .wrap{width:1240px;max-width:1240px;margin:0 auto;padding:0 32px;}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 32px;}
+  @media(max-width:768px){.wrap{padding:0 16px;}}
   .visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;}
   :focus-visible{outline:2px solid var(--water);outline-offset:3px;}
 
@@ -89,11 +90,11 @@
     transition:fill .4s var(--ease), r .4s var(--ease);
   }
   .thread-bead.lit{fill:var(--blush);}
+  @media(max-width:900px){#thread-rail{display:none;}}
 
   /* NAV */
   header{
     position:fixed;top:0;left:0;right:0;z-index:50;
-    min-width:1240px;
     padding:16px 0;
     transition:background .35s var(--ease), padding .35s var(--ease), box-shadow .35s var(--ease), border-color .35s var(--ease);
     border-bottom:1px solid transparent;
@@ -106,7 +107,6 @@
   }
   .nav-row{display:flex;align-items:center;justify-content:space-between;gap:24px;}
   
-  /* Brand with Logo */
   .brand{
     display:flex;
     align-items:center;
@@ -121,10 +121,6 @@
     width:auto;
     object-fit:contain;
     border-radius:6px;
-    transition:transform .3s ease;
-  }
-  .brand:hover .brand-logo{
-    transform:scale(1.05);
   }
 
   header.light .brand,
@@ -153,11 +149,23 @@
     display:flex;align-items:center;justify-content:center;padding:0 2px;
   }
   .menu-btn{display:none;}
+  @media(max-width:860px){
+    .navlinks{display:none;}
+    .menu-btn{display:flex;}
+  }
+
+  #mobile-menu{
+    position:fixed;inset:0;background:var(--ink);color:var(--paper);
+    z-index:90;transform:translateX(100%);transition:transform .45s var(--ease);
+    display:flex;flex-direction:column;justify-content:center;padding:40px;
+  }
+  #mobile-menu.open{transform:translateX(0);}
+  #mobile-menu a{font-family:'Fraunces',serif;font-size:32px;padding:12px 0;border-bottom:1px solid rgba(246,244,239,.15);}
+  #mobile-menu .close-menu{position:absolute;top:24px;right:28px;font-size:14px;letter-spacing:.1em;text-transform:uppercase;font-family:'IBM Plex Mono',monospace;}
 
   /* HERO */
   .hero{
-    position:relative;min-height:100vh;
-    min-width:1240px;
+    position:relative;min-height:90vh;
     display:flex;align-items:flex-end;
     color:#fff;overflow:hidden;
   }
@@ -171,18 +179,18 @@
   .hero-eyebrow{color:rgba(255,255,255,.85);font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.18em;text-transform:uppercase;margin-bottom:18px;display:flex;align-items:center;gap:10px;}
   .hero-eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--blush);}
   .hero h1{
-    font-size:74px;
+    font-size:clamp(38px,6.5vw,74px);
     font-weight:400;line-height:.98;max-width:14ch;
     letter-spacing:-.02em;
   }
   .hero h1 em{font-style:italic;font-weight:300;color:var(--glass);}
   .hero-sub{
-    margin-top:22px;font-size:18px;max-width:38ch;color:rgba(255,255,255,.86);font-weight:400;
+    margin-top:20px;font-size:16px;max-width:38ch;color:rgba(255,255,255,.86);font-weight:400;
   }
-  .hero-ctas{display:flex;gap:16px;margin-top:34px;flex-wrap:wrap;}
+  .hero-ctas{display:flex;gap:16px;margin-top:30px;flex-wrap:wrap;}
   .btn{
     font-family:'Manrope',sans-serif;font-weight:700;font-size:14px;letter-spacing:.02em;
-    padding:16px 30px;border-radius:100px;transition:transform .3s var(--ease), background .3s var(--ease), color .3s var(--ease), box-shadow .3s var(--ease);
+    padding:14px 28px;border-radius:100px;transition:transform .3s var(--ease), background .3s var(--ease), color .3s var(--ease);
     display:inline-flex;align-items:center;gap:8px;
   }
   .btn-primary{background:var(--paper);color:var(--ink);}
@@ -192,28 +200,59 @@
   .btn-dark{background:var(--ink);color:var(--paper);}
   .btn-dark:hover{background:var(--water-deep);transform:translateY(-2px);}
   .trust-line{
-    margin-top:44px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.08em;
+    margin-top:36px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.08em;
     color:rgba(255,255,255,.75);text-transform:uppercase;
   }
 
-  /* SECTION generic */
-  section{padding:112px 0;position:relative;min-width:1240px;}
-  .section-head{max-width:640px;margin-bottom:56px;}
-  .section-head h2{font-size:42px;margin-top:14px;font-weight:400;}
-  .section-head p{margin-top:16px;color:var(--ink-soft);font-size:16px;max-width:52ch;}
-  .section-head.center{margin-left:auto;margin-right:auto;text-align:center;}
+  section{padding:80px 0;position:relative;}
+  .section-head{max-width:640px;margin-bottom:40px;}
+  .section-head h2{font-size:clamp(28px,4vw,42px);margin-top:12px;font-weight:400;}
+  .section-head p{margin-top:12px;color:var(--ink-soft);font-size:15px;max-width:52ch;}
 
-  /* PRODUCT GRID - fixed 3 columns */
+  /* PRODUCT SLIDER CONTAINER (3 كروت جنب بعض + سكرول أفقي للموبايل) */
   .grid-products{
-    display:grid;grid-template-columns:repeat(3,1fr);gap:28px;
+    display:flex;
+    gap:20px;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    scroll-behavior:smooth;
+    padding-bottom:20px;
+    -webkit-overflow-scrolling:touch;
   }
+  .grid-products::-webkit-scrollbar{
+    height:6px;
+  }
+  .grid-products::-webkit-scrollbar-track{
+    background:var(--paper-deep);
+    border-radius:10px;
+  }
+  .grid-products::-webkit-scrollbar-thumb{
+    background:var(--water);
+    border-radius:10px;
+  }
+
+  /* حجم كل كارت ليكون بالضبط 3 جنب بعض في شاشة الموبايل */
   .card{
-    background:var(--white);border-radius:var(--radius);overflow:hidden;
+    flex:0 0 calc((100% - 40px) / 3);
+    min-width:270px;
+    scroll-snap-align:start;
+    background:var(--white);
+    border-radius:var(--radius);
+    overflow:hidden;
     border:1px solid var(--line);
-    display:flex;flex-direction:column;
-    transition:transform .4s var(--ease), box-shadow .4s var(--ease);
+    display:flex;
+    flex-direction:column;
+    box-shadow:0 6px 18px rgba(34,31,27,0.04);
   }
-  .card:hover{transform:translateY(-6px);box-shadow:var(--shadow);}
+
+  @media(max-width:900px){
+    .card{
+      /* على شاشات الموبايل: عرض الكارت 72% لتكون الصور واضحة وقريبة ويسهل سحبها */
+      flex:0 0 74vw;
+      min-width:260px;
+    }
+  }
+
   .card-media{
     position:relative;
     aspect-ratio:4/5;
@@ -232,154 +271,140 @@
     position:absolute;
     top:50%;
     transform:translateY(-50%);
-    width:36px;
-    height:36px;
+    width:34px;
+    height:34px;
     background:rgba(255,255,255,0.92);
     border-radius:50%;
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:16px;
+    font-size:15px;
     color:var(--ink);
     cursor:pointer;
     z-index:10;
-    box-shadow:0 3px 10px rgba(0,0,0,0.18);
-    transition:background .2s, transform .2s;
+    box-shadow:0 2px 8px rgba(0,0,0,0.18);
   }
-  .slide-btn:hover{
-    background:#ffffff;
-    transform:translateY(-50%) scale(1.1);
-  }
-  .slide-prev{left:10px;}
-  .slide-next{right:10px;}
+  .slide-prev{left:8px;}
+  .slide-next{right:8px;}
 
   .slide-indicators{
     position:absolute;
-    bottom:12px;
+    bottom:10px;
     left:50%;
     transform:translateX(-50%);
     display:flex;
-    gap:6px;
+    gap:5px;
     z-index:10;
   }
   .slide-dot{
-    width:8px;
-    height:8px;
+    width:7px;
+    height:7px;
     border-radius:50%;
     background:rgba(255,255,255,0.55);
     transition:all .3s ease;
   }
   .slide-dot.active{
     background:var(--ink);
-    width:18px;
+    width:16px;
     border-radius:10px;
   }
 
   .qv-btn{
-    position:absolute;left:14px;right:14px;bottom:-46px;
+    position:absolute;left:14px;right:14px;bottom:14px;
     background:rgba(246,244,239,.95);color:var(--ink);
-    font-size:12px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;
-    padding:12px;border-radius:100px;text-align:center;
-    transition:bottom .35s var(--ease);
+    font-size:11px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;
+    padding:10px;border-radius:100px;text-align:center;
     z-index:15;
   }
-  .card:hover .qv-btn{bottom:14px;}
-  .card-body{padding:20px 20px 22px;display:flex;flex-direction:column;gap:10px;flex:1;}
-  .card-body h3{font-size:19px;font-weight:500;}
-  .card-tag{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft);letter-spacing:.03em;}
+  .card-body{padding:16px;display:flex;flex-direction:column;gap:8px;flex:1;}
+  .card-body h3{font-size:17px;font-weight:600;}
+  .card-tag{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--ink-soft);letter-spacing:.03em;}
   .price-row{display:flex;align-items:baseline;gap:8px;margin-top:auto;}
-  .price{font-family:'IBM Plex Mono',monospace;font-size:16px;font-weight:500;}
+  .price{font-family:'IBM Plex Mono',monospace;font-size:16px;font-weight:700;color:var(--water-deep);}
   
-  .card-actions{display:flex;gap:8px;margin-top:8px;}
+  .card-actions{display:flex;gap:8px;margin-top:6px;}
   .add-btn{
     flex:1;background:var(--ink);color:var(--paper);
-    padding:13px 16px;border-radius:100px;font-size:13px;font-weight:700;letter-spacing:.02em;
-    display:flex;align-items:center;justify-content:center;gap:8px;
-    transition:background .3s var(--ease);
+    padding:11px 12px;border-radius:100px;font-size:12px;font-weight:700;
+    display:flex;align-items:center;justify-content:center;
   }
-  .add-btn:hover{background:var(--water-deep);}
-
   .wa-btn{
     background:#25D366;color:#FFFFFF;
-    padding:13px 16px;border-radius:100px;font-size:13px;font-weight:700;
-    display:inline-flex;align-items:center;justify-content:center;gap:6px;
-    transition:background .3s var(--ease), transform .2s ease;
+    padding:11px 14px;border-radius:100px;font-size:12px;font-weight:700;
+    display:inline-flex;align-items:center;justify-content:center;gap:5px;
   }
-  .wa-btn:hover{background:#1EBE5D;transform:translateY(-2px);}
-  .wa-btn svg{width:16px;height:16px;fill:currentColor;}
+  .wa-btn svg{width:15px;height:15px;fill:currentColor;}
 
-  /* WHY - fixed 4 columns */
+  /* WHY */
   .why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;}
-  .why-item{background:var(--paper);padding:34px 28px;}
+  @media(max-width:900px){.why-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:560px){.why-grid{grid-template-columns:1fr;}}
+  .why-item{background:var(--paper);padding:28px 20px;}
   .why-num{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--water-deep);}
-  .why-item h3{font-size:20px;margin-top:14px;font-weight:500;}
-  .why-item p{margin-top:10px;color:var(--ink-soft);font-size:14.5px;}
+  .why-item h3{font-size:18px;margin-top:10px;font-weight:600;}
+  .why-item p{margin-top:8px;color:var(--ink-soft);font-size:13.5px;}
 
   /* STYLE / MOODS */
-  .moods-wrap{background:var(--ink);color:var(--paper);border-radius:var(--radius);padding:64px 8px 8px;overflow:hidden;}
-  .moods-head{padding:0 48px 40px;}
+  .moods-wrap{background:var(--ink);color:var(--paper);border-radius:var(--radius);padding:48px 12px 12px;overflow:hidden;}
+  .moods-head{padding:0 24px 28px;}
   .moods-head .eyebrow{color:var(--glass-deep);}
   .moods-head h2{color:var(--paper);}
   .moods-head p{color:rgba(246,244,239,.68);}
-  .moods-strip{display:flex;gap:14px;overflow-x:auto;padding:0 24px 40px;}
+  .moods-strip{display:flex;gap:14px;overflow-x:auto;padding:0 12px 24px;}
   .mood-card{
-    flex:0 0 240px;
-    border-radius:16px;overflow:hidden;background:#2b2823;position:relative;height:320px;
+    flex:0 0 220px;
+    border-radius:16px;overflow:hidden;background:#2b2823;position:relative;height:290px;
   }
   .mood-card img{width:100%;height:100%;object-fit:cover;opacity:.88;}
   .mood-label{
-    position:absolute;left:0;right:0;bottom:0;padding:20px;
+    position:absolute;left:0;right:0;bottom:0;padding:16px;
     background:linear-gradient(0deg,rgba(0,0,0,.7),transparent);
   }
   .mood-label .eyebrow{color:rgba(246,244,239,.6);}
-  .mood-label h4{color:#fff;font-size:20px;margin-top:4px;font-weight:500;}
+  .mood-label h4{color:#fff;font-size:18px;margin-top:4px;font-weight:500;}
 
-  /* REVIEWS - fixed 3 columns */
-  .reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  /* REVIEWS */
+  .reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  @media(max-width:860px){.reviews-grid{grid-template-columns:1fr;}}
   .review-card{
     background:var(--white);border:1px solid var(--line);border-radius:var(--radius);
-    padding:30px;display:flex;flex-direction:column;gap:18px;
+    padding:24px;display:flex;flex-direction:column;gap:14px;
   }
-  .stars{color:var(--water-deep);font-size:14px;letter-spacing:2px;}
-  .review-card p.quote{font-family:'Fraunces',serif;font-size:18px;font-style:italic;line-height:1.5;font-weight:400;}
+  .stars{color:var(--water-deep);font-size:13px;letter-spacing:2px;}
+  .review-card p.quote{font-family:'Fraunces',serif;font-size:16px;font-style:italic;line-height:1.5;}
   .review-who{display:flex;align-items:center;gap:10px;margin-top:auto;}
-  .avatar{width:34px;height:34px;border-radius:50%;background:var(--glass);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--water-deep);}
-  .review-who .name{font-weight:700;font-size:14px;}
-  .review-who .loc{font-size:12.5px;color:var(--ink-soft);}
+  .avatar{width:32px;height:32px;border-radius:50%;background:var(--glass);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--water-deep);}
+  .review-who .name{font-weight:700;font-size:13.5px;}
+  .review-who .loc{font-size:12px;color:var(--ink-soft);}
 
-  /* INSTAGRAM - fixed 4 columns */
-  .insta-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+  /* INSTAGRAM */
+  .insta-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+  @media(max-width:760px){.insta-grid{grid-template-columns:repeat(2,1fr);}}
   .insta-item{aspect-ratio:1/1;overflow:hidden;border-radius:14px;position:relative;}
-  .insta-item img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease);}
-  .insta-item:hover img{transform:scale(1.08);}
-  .insta-item .tag{position:absolute;bottom:10px;left:10px;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:11px;background:rgba(0,0,0,.35);padding:4px 9px;border-radius:100px;backdrop-filter:blur(4px);}
+  .insta-item img{width:100%;height:100%;object-fit:cover;}
+  .insta-item .tag{position:absolute;bottom:8px;left:8px;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:10px;background:rgba(0,0,0,.4);padding:4px 8px;border-radius:100px;}
 
   /* FINAL CTA */
   .final-cta{
     background:linear-gradient(135deg,var(--water-deep),var(--ink));
     border-radius:var(--radius);color:#fff;
-    padding:90px 40px;text-align:center;position:relative;overflow:hidden;
+    padding:60px 24px;text-align:center;
   }
-  .final-cta::before{
-    content:"";position:absolute;width:520px;height:520px;border-radius:50%;
-    background:radial-gradient(circle,rgba(255,255,255,.10),transparent 70%);
-    top:-220px;right:-160px;
-  }
-  .final-cta h2{color:#fff;font-size:48px;max-width:16ch;margin:0 auto;position:relative;z-index:1;}
-  .final-cta .btn{margin-top:32px;position:relative;z-index:1;}
+  .final-cta h2{color:#fff;font-size:clamp(26px,4.5vw,44px);max-width:16ch;margin:0 auto;}
+  .final-cta .btn{margin-top:24px;}
 
-  /* FOOTER - fixed columns */
-  footer{border-top:1px solid var(--line);padding:64px 0 32px;margin-top:40px;min-width:1240px;}
-  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;}
-  .foot-grid h5{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:16px;}
-  .foot-links{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;}
-  .foot-links a{font-size:14px;color:var(--ink-soft);}
-  .foot-links a:hover{color:var(--ink);}
-  .foot-brand p{margin-top:14px;color:var(--ink-soft);font-size:14px;max-width:32ch;}
+  /* FOOTER */
+  footer{border-top:1px solid var(--line);padding:48px 0 24px;margin-top:30px;}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:30px;}
+  @media(max-width:760px){.foot-grid{grid-template-columns:1fr 1fr;}}
+  .foot-grid h5{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:14px;}
+  .foot-links{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px;}
+  .foot-links a{font-size:13.5px;color:var(--ink-soft);}
+  .foot-brand p{margin-top:12px;color:var(--ink-soft);font-size:13.5px;}
   .foot-bottom{
-    margin-top:56px;padding-top:24px;border-top:1px solid var(--line);
+    margin-top:40px;padding-top:20px;border-top:1px solid var(--line);
     display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;
-    font-size:12.5px;color:var(--ink-soft);
+    font-size:12px;color:var(--ink-soft);
   }
 
   /* MODALS / DRAWERS */
@@ -393,118 +418,98 @@
   #qv-modal{
     position:fixed;z-index:95;left:50%;top:50%;
     transform:translate(-50%,-46%) scale(.97);
-    width:920px;max-height:88vh;overflow:auto;
+    width:min(900px,94vw);max-height:88vh;overflow:auto;
     background:var(--paper);border-radius:var(--radius);
     opacity:0;pointer-events:none;transition:opacity .35s var(--ease), transform .35s var(--ease);
     box-shadow:0 40px 80px -30px rgba(0,0,0,.45);
   }
   #qv-modal.show{opacity:1;pointer-events:auto;transform:translate(-50%,-50%) scale(1);}
-  .qv-close{position:absolute;top:18px;right:18px;background:var(--white);width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:20;border:1px solid var(--line);}
+  .qv-close{position:absolute;top:16px;right:16px;background:var(--white);width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:20;border:1px solid var(--line);}
   .qv-layout{display:grid;grid-template-columns:1fr 1fr;}
+  @media(max-width:680px){.qv-layout{grid-template-columns:1fr;}}
   .qv-media{position:relative;aspect-ratio:1/1;overflow:hidden;background:var(--glass);}
   .qv-media img{width:100%;height:100%;object-fit:cover;}
-  .qv-content{padding:40px;display:flex;flex-direction:column;gap:16px;}
-  .qv-content h3{font-size:28px;}
+  .qv-content{padding:28px;display:flex;flex-direction:column;gap:14px;}
+  .qv-content h3{font-size:24px;}
   .qv-content .price-row{margin-top:2px;}
-  .qv-content p.desc{color:var(--ink-soft);font-size:14.5px;}
-  .qv-meta{display:flex;flex-direction:column;gap:6px;font-size:13.5px;color:var(--ink-soft);}
-  .qv-meta b{color:var(--ink);}
+  .qv-content p.desc{color:var(--ink-soft);font-size:14px;}
   .qty-row{display:flex;align-items:center;gap:14px;margin-top:6px;}
   .qty-control{display:flex;align-items:center;border:1px solid var(--line);border-radius:100px;overflow:hidden;}
-  .qty-control button{width:38px;height:38px;font-size:16px;}
-  .qty-control span{width:32px;text-align:center;font-family:'IBM Plex Mono',monospace;}
-  .qv-actions{display:flex;gap:12px;margin-top:6px;flex-wrap:wrap;}
+  .qty-control button{width:36px;height:36px;font-size:16px;}
+  .qty-control span{width:30px;text-align:center;font-family:'IBM Plex Mono',monospace;}
+  .qv-actions{display:flex;gap:10px;margin-top:6px;flex-wrap:wrap;}
   .qv-actions .btn{flex:1;justify-content:center;}
 
   /* Cart drawer */
   #cart-drawer{
-    position:fixed;top:0;right:0;bottom:0;width:420px;z-index:95;
+    position:fixed;top:0;right:0;bottom:0;width:min(400px,100vw);z-index:95;
     background:var(--paper);box-shadow:-30px 0 60px -30px rgba(0,0,0,.4);
     transform:translateX(100%);transition:transform .4s var(--ease);
     display:flex;flex-direction:column;
   }
   #cart-drawer.show{transform:translateX(0);}
-  .cart-head{padding:24px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;}
-  .cart-head h3{font-size:22px;}
-  .cart-items{flex:1;overflow:auto;padding:10px 24px;}
-  .cart-item{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--line);}
-  .cart-item img{width:74px;height:74px;object-fit:cover;border-radius:10px;background:var(--glass);}
-  .ci-info{flex:1;display:flex;flex-direction:column;gap:6px;}
-  .ci-info .ci-name{font-family:'Fraunces',serif;font-size:16px;}
+  .cart-head{padding:20px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;}
+  .cart-head h3{font-size:20px;}
+  .cart-items{flex:1;overflow:auto;padding:10px 20px;}
+  .cart-item{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid var(--line);}
+  .cart-item img{width:68px;height:68px;object-fit:cover;border-radius:10px;background:var(--glass);}
+  .ci-info{flex:1;display:flex;flex-direction:column;gap:4px;}
+  .ci-info .ci-name{font-family:'Fraunces',serif;font-size:15px;}
   .ci-info .ci-price{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--water-deep);}
   .ci-row{display:flex;align-items:center;justify-content:space-between;}
   .ci-remove{font-size:12px;color:var(--ink-soft);text-decoration:underline;}
   .cart-empty{padding:60px 20px;text-align:center;color:var(--ink-soft);}
-  .cart-foot{padding:22px 24px 28px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:14px;}
-  .cart-total-row{display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:15px;}
-  .cart-note{font-size:12px;color:var(--ink-soft);}
+  .cart-foot{padding:20px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:12px;}
+  .cart-total-row{display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:15px;font-weight:700;}
 
   /* Checkout modal */
   #checkout-modal{
     position:fixed;z-index:97;left:50%;top:50%;
     transform:translate(-50%,-46%) scale(.97);
-    width:560px;max-height:90vh;overflow:auto;
+    width:min(520px,94vw);max-height:90vh;overflow:auto;
     background:var(--paper);border-radius:var(--radius);
     opacity:0;pointer-events:none;transition:opacity .35s var(--ease), transform .35s var(--ease);
-    box-shadow:0 40px 80px -30px rgba(0,0,0,.45);
-    padding:36px;
+    padding:30px;
   }
   #checkout-modal.show{opacity:1;pointer-events:auto;transform:translate(-50%,-50%) scale(1);}
-  .co-step h3{font-size:24px;margin-bottom:6px;}
-  .co-step .eyebrow{margin-bottom:10px;display:block;}
-  .field{display:flex;flex-direction:column;gap:6px;margin-top:16px;}
-  .field label{font-size:12.5px;font-weight:700;letter-spacing:.02em;}
+  .co-step h3{font-size:22px;margin-bottom:6px;}
+  .field{display:flex;flex-direction:column;gap:5px;margin-top:14px;}
+  .field label{font-size:12px;font-weight:700;}
   .field input,.field textarea{
-    border:1px solid var(--line);border-radius:12px;padding:13px 14px;
-    font-family:'Manrope',sans-serif;font-size:14.5px;background:var(--white);color:var(--ink);
+    border:1px solid var(--line);border-radius:10px;padding:11px 12px;
+    font-family:'Manrope',sans-serif;font-size:14px;background:var(--white);color:var(--ink);
   }
-  .field input:focus,.field textarea:focus{outline:none;border-color:var(--water);}
-  .field-row{display:flex;gap:12px;}
+  .field-row{display:flex;gap:10px;}
   .field-row .field{flex:1;}
-  .pay-options{display:flex;flex-direction:column;gap:10px;margin-top:16px;}
   .pay-option{
-    border:1px solid var(--line);border-radius:14px;padding:14px 16px;
-    display:flex;align-items:center;gap:12px;cursor:pointer;
+    border:1px solid var(--line);border-radius:12px;padding:12px 14px;
+    display:flex;align-items:center;gap:10px;margin-top:14px;
   }
-  .pay-option input{accent-color:var(--water-deep);}
-  .pay-option .po-title{font-weight:700;font-size:14px;}
-  .pay-option .po-sub{font-size:12.5px;color:var(--ink-soft);}
-  .order-summary{background:var(--paper-deep);border-radius:14px;padding:16px;margin-top:18px;font-size:13.5px;}
-  .order-summary .row{display:flex;justify-content:space-between;padding:4px 0;}
-  .order-summary .row.total{font-weight:800;border-top:1px solid var(--line);margin-top:6px;padding-top:10px;}
-  .co-actions{display:flex;gap:12px;margin-top:24px;}
+  .order-summary{background:var(--paper-deep);border-radius:12px;padding:14px;margin-top:16px;font-size:13px;}
+  .order-summary .row{display:flex;justify-content:space-between;padding:3px 0;}
+  .order-summary .row.total{font-weight:800;border-top:1px solid var(--line);margin-top:6px;padding-top:8px;}
+  .co-actions{display:flex;gap:10px;margin-top:20px;}
   .confirm-icon{
-    width:64px;height:64px;border-radius:50%;background:var(--water);
-    display:flex;align-items:center;justify-content:center;margin:0 auto 20px;
+    width:56px;height:56px;border-radius:50%;background:var(--water);
+    display:flex;align-items:center;justify-content:center;margin:0 auto 16px;color:#fff;font-size:24px;
   }
   .confirm-wrap{text-align:center;padding:10px 0 4px;}
-  .confirm-wrap h3{font-size:26px;}
-  .confirm-wrap p{color:var(--ink-soft);margin-top:10px;}
+  .confirm-wrap h3{font-size:24px;}
+  .confirm-wrap p{color:var(--ink-soft);margin-top:8px;font-size:14px;}
   .order-id{
     font-family:'IBM Plex Mono',monospace;background:var(--paper-deep);
-    border-radius:100px;padding:10px 20px;display:inline-block;margin-top:18px;font-size:13px;
+    border-radius:100px;padding:8px 16px;display:inline-block;margin-top:16px;font-size:13px;
   }
 
   .toast{
     position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(20px);
-    background:var(--ink);color:var(--paper);padding:14px 22px;border-radius:100px;
-    font-size:13.5px;z-index:120;opacity:0;pointer-events:none;transition:all .35s var(--ease);
+    background:var(--ink);color:var(--paper);padding:12px 20px;border-radius:100px;
+    font-size:13px;z-index:120;opacity:0;pointer-events:none;transition:all .35s var(--ease);
   }
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
-
-  [data-reveal]{opacity:0;transform:translateY(26px);transition:opacity .8s var(--ease), transform .8s var(--ease);}
-  [data-reveal].in{opacity:1;transform:translateY(0);}
 </style>
 </head>
 <body>
-
-<div id="thread-rail" aria-hidden="true">
-  <svg viewBox="0 0 26 1000" preserveAspectRatio="none">
-    <path id="thread-line" d="M13,0 L13,1000"></path>
-    <path id="thread-progress" d="M13,0 L13,1000"></path>
-    <g id="thread-beads"></g>
-  </svg>
-</div>
 
 <header id="site-header" class="on-hero">
   <div class="wrap nav-row">
@@ -527,9 +532,22 @@
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 6h15l-1.5 9h-12z"/><path d="M6 6L4.5 2H2"/><circle cx="9.5" cy="20" r="1.4" fill="currentColor" stroke="none"/><circle cx="17.5" cy="20" r="1.4" fill="currentColor" stroke="none"/></svg>
         <span id="cart-count">0</span>
       </button>
+      <button aria-label="Open menu" class="menu-btn" id="menu-open">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
     </div>
   </div>
 </header>
+
+<div id="mobile-menu">
+  <button class="close-menu" id="menu-close">Close ✕</button>
+  <a href="#hero">Home</a>
+  <a href="#shop">Shop</a>
+  <a href="#why">About Us</a>
+  <a href="#moods">Style Guide</a>
+  <a href="#reviews">Reviews</a>
+  <a href="#footer">Contact</a>
+</div>
 
 <!-- HERO -->
 <section class="hero" id="hero" style="padding:0;">
@@ -541,33 +559,34 @@
     <h1>Wear Something <em>Different.</em></h1>
     <p class="hero-sub">Unique glass chains designed to make your everyday style stand out with HOZI.</p>
     <div class="hero-ctas">
-      <a href="#shop" class="btn btn-primary">Shop the Collection</a>
+      <a href="#shop" class="btn btn-primary">Shop Collection</a>
       <a href="https://wa.me/201220348402" target="_blank" class="btn btn-ghost">Chat on WhatsApp</a>
     </div>
     <div class="trust-line">Handmade &nbsp;•&nbsp; Unique Designs &nbsp;•&nbsp; Cash on Delivery Available</div>
   </div>
 </section>
 
-<!-- FEATURED PRODUCTS -->
-<section id="shop" data-anchor>
+<!-- PRODUCTS SECTION -->
+<section id="shop">
   <div class="wrap">
-    <div class="section-head" data-reveal>
+    <div class="section-head">
       <span class="eyebrow">Our Collection</span>
       <h2>Chains people keep coming back for.</h2>
-      <p>Every piece is strung by hand, one glass drop at a time — use the arrows to explore different angles.</p>
+      <p>Swipe horizontally to browse designs. Use the arrows to explore different angles.</p>
     </div>
-    <div class="grid-products" id="product-grid" data-reveal></div>
+    <!-- سكرول أفقي سلس باللمس -->
+    <div class="grid-products" id="product-grid"></div>
   </div>
 </section>
 
 <!-- WHY CHOOSE US -->
-<section id="why" data-anchor>
+<section id="why">
   <div class="wrap">
-    <div class="section-head" data-reveal>
+    <div class="section-head">
       <span class="eyebrow">Why HOZI</span>
       <h2>Small chain. Real difference.</h2>
     </div>
-    <div class="why-grid" data-reveal>
+    <div class="why-grid">
       <div class="why-item">
         <span class="why-num">01</span>
         <h3>Unique Designs</h3>
@@ -576,7 +595,7 @@
       <div class="why-item">
         <span class="why-num">02</span>
         <h3>Handmade Feel</h3>
-        <p>Every piece has its own character — the glass isn't perfectly identical, and that's the point.</p>
+        <p>Every piece has its own character — the glass isn't identical, and that's the point.</p>
       </div>
       <div class="why-item">
         <span class="why-num">03</span>
@@ -586,34 +605,34 @@
       <div class="why-item">
         <span class="why-num">04</span>
         <h3>Easy Ordering</h3>
-        <p>Simple checkout, direct WhatsApp support, and fast delivery across Egypt.</p>
+        <p>Direct WhatsApp support, and fast delivery across Egypt.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- STYLE / MOODS -->
-<section id="moods" data-anchor>
+<section id="moods">
   <div class="wrap">
-    <div class="section-head center" data-reveal style="margin-left:auto;margin-right:auto;">
-      <span class="eyebrow">Style Guide</span>
-      <h2>One Chain. Different Moods.</h2>
-      <p>The same drop looks new depending on how — and when — you wear it.</p>
-    </div>
-    <div class="moods-wrap" data-reveal>
+    <div class="moods-wrap">
+      <div class="moods-head">
+        <span class="eyebrow">Style Guide</span>
+        <h2>One Chain. Different Moods.</h2>
+        <p>The same drop looks new depending on how you wear it.</p>
+      </div>
       <div class="moods-strip" id="moods-strip"></div>
     </div>
   </div>
 </section>
 
-<!-- SOCIAL PROOF -->
-<section id="reviews" data-anchor>
+<!-- REVIEWS -->
+<section id="reviews">
   <div class="wrap">
-    <div class="section-head center" data-reveal style="margin-left:auto;margin-right:auto;">
+    <div class="section-head center">
       <span class="eyebrow">From Customers</span>
       <h2>What people say after wearing it.</h2>
     </div>
-    <div class="reviews-grid" data-reveal>
+    <div class="reviews-grid">
       <div class="review-card">
         <div class="stars">★★★★★</div>
         <p class="quote">"Honestly, the chain looked even better in real life. I love how different it looks."</p>
@@ -632,7 +651,7 @@
       </div>
       <div class="review-card">
         <div class="stars">★★★★☆</div>
-        <p class="quote">"Delivery took a couple of extra days, but the chain itself is beautiful and feels well made for the price."</p>
+        <p class="quote">"Delivery took a couple of extra days, but the chain itself is beautiful and well made."</p>
         <div class="review-who">
           <div class="avatar">M</div>
           <div><div class="name">Mariam</div><div class="loc">Giza</div></div>
@@ -643,20 +662,20 @@
 </section>
 
 <!-- INSTAGRAM -->
-<section id="social" data-anchor>
+<section id="social">
   <div class="wrap">
-    <div class="section-head center" data-reveal style="margin-left:auto;margin-right:auto;">
+    <div class="section-head center">
       <span class="eyebrow">@hozi.eg</span>
       <h2>See It. Style It. Make It Yours.</h2>
     </div>
-    <div class="insta-grid" data-reveal id="insta-grid"></div>
+    <div class="insta-grid" id="insta-grid"></div>
   </div>
 </section>
 
 <!-- FINAL CTA -->
 <section style="padding-top:0;">
   <div class="wrap">
-    <div class="final-cta" data-reveal>
+    <div class="final-cta">
       <h2>Ready to find your signature drop?</h2>
       <a href="#shop" class="btn btn-primary">Shop All Designs</a>
     </div>
@@ -672,7 +691,7 @@
           <img src="logo.jpg" alt="" class="brand-logo" onerror="if(!this.triedOther){this.triedOther=true;this.src='logo.png.jpeg';}else{this.style.display='none';}">
           <span>HOZI</span>
         </div>
-        <p>Handmade glass chains, designed and crafted in Egypt. Minimal, delicate, timeless.</p>
+        <p>Handmade glass chains, designed and crafted in Egypt.</p>
       </div>
       <div>
         <h5>Navigation</h5>
@@ -724,10 +743,6 @@
       <h3 id="qv-title"></h3>
       <div class="price-row"><span class="price" id="qv-price"></span></div>
       <p class="desc" id="qv-desc"></p>
-      <div class="qv-meta">
-        <div><b>Material:</b> Hand-strung glass beads & transparent cord</div>
-        <div><b>Delivery:</b> Fast delivery across Egypt (Cash on Delivery)</div>
-      </div>
       <div class="qty-row">
         <span>Quantity:</span>
         <div class="qty-control">
@@ -756,7 +771,6 @@
       <span>Total:</span>
       <span id="cart-total">0 EGP</span>
     </div>
-    <div class="cart-note">Shipping calculated during confirmation. Cash on Delivery available.</div>
     <button class="btn btn-dark" id="checkout-btn">Proceed to Checkout</button>
     <a class="btn wa-btn" id="cart-wa-all" href="https://wa.me/201220348402" target="_blank">Quick Order via WhatsApp</a>
   </div>
@@ -787,14 +801,9 @@
         <label>Detailed Address</label>
         <textarea id="cust-address" rows="2" required placeholder="Building, street, landmark..."></textarea>
       </div>
-      <div class="pay-options">
-        <label class="pay-option">
-          <input type="radio" name="payment" checked>
-          <div>
-            <div class="po-title">Cash on Delivery</div>
-            <div class="po-sub">Pay safely when your order arrives</div>
-          </div>
-        </label>
+      <div class="pay-option">
+        <input type="radio" name="payment" checked>
+        <span>Cash on Delivery</span>
       </div>
       <div class="order-summary" id="co-summary"></div>
       <div class="co-actions">
@@ -805,9 +814,9 @@
   <div class="confirm-wrap" id="co-success-view" style="display:none;">
     <div class="confirm-icon">✓</div>
     <h3>Order Confirmed!</h3>
-    <p>Thank you for ordering with HOZI. We will be in touch shortly to confirm your delivery details.</p>
+    <p>Thank you for ordering with HOZI. We will be in touch shortly to confirm delivery.</p>
     <div class="order-id" id="co-order-id"></div>
-    <div style="margin-top:24px;">
+    <div style="margin-top:20px;">
       <button class="btn btn-dark" id="co-finish-btn">Back to Shop</button>
     </div>
   </div>
@@ -849,7 +858,7 @@
       title: "Triple Drop Pendant Choker",
       price: 140,
       images: ["product4.jpg.jpeg"],
-      desc: "Three vertically aligned crystal drops offering an elongated, flattering silhouette."
+      desc: "Three vertically aligned crystal drops offering an elongated silhouette."
     },
     {
       id: "product5",
@@ -896,7 +905,7 @@
     }
   }
 
-  // Render Products Grid
+  // بناء الكروت داخل السلايدر الأفقي
   const grid = document.getElementById('product-grid');
   grid.innerHTML = products.map((p) => {
     const hasMultiple = p.images.length > 1;
@@ -916,13 +925,13 @@
         <div class="card-body">
           <span class="card-tag">Handmade • Glass Beads</span>
           <h3>${p.title}</h3>
-          <p style="font-size:13.5px;color:var(--ink-soft);">${p.desc}</p>
+          <p style="font-size:12.5px;color:var(--ink-soft);">${p.desc}</p>
           <div class="price-row">
             <span class="price">${p.price} EGP</span>
           </div>
           <div class="card-actions">
-            <button class="add-btn" onclick="addToCart('${p.id}')">Add to Bag</button>
-            <a class="wa-btn" href="https://wa.me/${whatsappPhone}?text=Hello,%20I%20want%20to%20order%20${encodeURIComponent(p.title)}%20(${p.price}%20EGP)" target="_blank" title="Order via WhatsApp">
+            <button class="add-btn" onclick="addToCart('${p.id}')">Add</button>
+            <a class="wa-btn" href="https://wa.me/${whatsappPhone}?text=Hello,%20I%20want%20to%20order%20${encodeURIComponent(p.title)}%20(${p.price}%20EGP)" target="_blank">
               <svg viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm.01 18.07c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.3c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.83c.01 4.54-3.69 8.23-8.22 8.23zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.14.17-.25.25-.41.08-.17.04-.31-.02-.43s-.56-1.34-.76-1.84c-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.22.25-.86.84-.86 2.05 0 1.21.88 2.38 1 2.55.12.17 1.74 2.66 4.21 3.73.59.25 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.07-.11-.23-.17-.47-.3z"/></svg>
               Order
             </a>
@@ -1166,17 +1175,12 @@
     }
   });
 
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('in');
-      }
-    });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el));
+  document.getElementById('menu-open').onclick = () => document.getElementById('mobile-menu').classList.add('open');
+  document.getElementById('menu-close').onclick = () => document.getElementById('mobile-menu').classList.remove('open');
+  document.querySelectorAll('#mobile-menu a').forEach(a => {
+    a.onclick = () => document.getElementById('mobile-menu').classList.remove('open');
+  });
 </script>
 
 </body>
 </html>
-```
-</ElicitationsGroup>
