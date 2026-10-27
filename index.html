@@ -260,7 +260,7 @@
   .why-item h3{font-size:15px;margin-top:6px;font-weight:600;}
   .why-item p{margin-top:4px;color:var(--ink-soft);font-size:12.5px;}
 
-  /* THE MAKER SECTION (سيرة مارينا الذاتية) */
+  /* THE MAKER SECTION (سيرة مارينا الذاتية مع ملف maker.jpeg) */
   .maker-wrap{
     display:grid;
     grid-template-columns:1fr 1.2fr;
@@ -306,7 +306,7 @@
     margin-top:14px;
   }
 
-  /* LAST THING / FINAL CTA BANNER (البنر الأخضر) */
+  /* LAST THING / FINAL CTA BANNER (البنر الأخضر الأنيق) */
   .final-cta-banner{
     background:linear-gradient(135deg, #2D473F 0%, #172420 100%);
     border-radius:24px;
@@ -503,12 +503,14 @@
   </div>
 </section>
 
-<!-- THE MAKER SECTION (سيرة مارينا الذاتية بأسلوب إنجليزي بسيط ومريح A2/B2) -->
+<!-- THE MAKER SECTION -->
 <section id="maker" style="background:var(--paper-deep);">
   <div class="wrap">
     <div class="maker-wrap">
       <div>
-        <img src="marina.jpg" alt="Marina - Founder of HOZI" class="maker-img" onerror="if(!this.triedOther){this.triedOther=true;this.src='maker.jpg';}else{this.src='product1.jpg.jpeg';}">
+        <img src="maker.jpeg" 
+             alt="Marina - Founder of HOZI" 
+             class="maker-img">
       </div>
       <div class="maker-content">
         <span class="eyebrow">The Maker</span>
@@ -555,7 +557,7 @@
   </div>
 </section>
 
-<!-- LAST THING / FINAL CTA BANNER (البنر الأخضر المفقود) -->
+<!-- LAST THING / FINAL CTA BANNER -->
 <section style="padding-top:10px;padding-bottom:50px;">
   <div class="wrap">
     <div class="final-cta-banner">
@@ -816,7 +818,6 @@
     });
   }
 
-  // دعم السحب باللمس على الكروت
   products.forEach(p => {
     if (p.images.length <= 1) return;
     const container = document.getElementById(`media-${p.id}`);
@@ -880,7 +881,6 @@
     });
   }
 
-  // دعم السحب أيضاً داخل Quick View
   const qvContainer = document.getElementById('qv-media-container');
   let qvStartX = 0;
   qvContainer.addEventListener('touchstart', (e) => {
