@@ -35,7 +35,7 @@
     color:var(--ink);
     font-family:'Manrope',sans-serif;
     font-size:14px;
-    line-height:1.5;
+    line-height:1.55;
     -webkit-font-smoothing:antialiased;
     overflow-x:hidden;
   }
@@ -52,7 +52,7 @@
     color:var(--water-deep);
   }
   .wrap{max-width:1100px;margin:0 auto;padding:0 20px;}
-  @media(max-width:600px){.wrap{padding:0 12px;}}
+  @media(max-width:600px){.wrap{padding:0 14px;}}
 
   /* NAV */
   header{
@@ -62,7 +62,7 @@
     border-bottom:1px solid transparent;
   }
   header.solid{
-    background:rgba(246,244,239,0.95);
+    background:rgba(246,244,239,0.96);
     backdrop-filter:blur(10px);
     padding:8px 0;
     border-color:var(--line);
@@ -117,7 +117,7 @@
     display:flex;flex-direction:column;justify-content:center;padding:40px;
   }
   #mobile-menu.open{transform:translateX(0);}
-  #mobile-menu a{font-family:'Fraunces',serif;font-size:28px;padding:12px 0;border-bottom:1px solid rgba(246,244,239,.15);}
+  #mobile-menu a{font-family:'Fraunces',serif;font-size:26px;padding:12px 0;border-bottom:1px solid rgba(246,244,239,.15);}
   #mobile-menu .close-menu{position:absolute;top:24px;right:28px;font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-family:'IBM Plex Mono',monospace;}
 
   /* HERO */
@@ -154,12 +154,12 @@
   .btn-dark{background:var(--ink);color:var(--paper);}
 
   /* SECTION */
-  section{padding:50px 0;position:relative;}
+  section{padding:54px 0;position:relative;}
   .section-head{max-width:540px;margin-bottom:28px;}
   .section-head h2{font-size:clamp(24px,3.5vw,34px);margin-top:8px;font-weight:400;}
   .section-head p{margin-top:8px;color:var(--ink-soft);font-size:13.5px;}
 
-  /* PRODUCT GRID: 2 منتجات بجانب بعض */
+  /* PRODUCT GRID: منتجان بجانب بعض واضحة وقريبة */
   .grid-products{
     display:grid;
     grid-template-columns:repeat(2, 1fr);
@@ -185,7 +185,7 @@
     aspect-ratio:4/5;
     overflow:hidden;
     background:var(--glass);
-    touch-action:pan-y; /* يسمح بالسحب الأفقي دون تعطيل التمرير العمودي */
+    touch-action:pan-y;
   }
   .card-media img{
     width:100%;
@@ -195,7 +195,7 @@
     pointer-events:none;
   }
 
-  /* نقاط السلايدر السفلية المدمجة */
+  /* مؤشرات النقاط */
   .slide-indicators{
     position:absolute;
     bottom:8px;
@@ -222,7 +222,6 @@
     border-radius:6px;
   }
 
-  /* نصوص وتفاصيل المنتج */
   .card-body{padding:12px;display:flex;flex-direction:column;gap:5px;flex:1;}
   .card-body h3{font-size:14px;font-weight:600;line-height:1.3;}
   .card-tag{font-family:'IBM Plex Mono',monospace;font-size:9.5px;color:var(--ink-soft);letter-spacing:.02em;}
@@ -231,7 +230,6 @@
   .price-row{display:flex;align-items:baseline;gap:6px;margin-top:auto;}
   .price{font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:700;color:var(--water-deep);}
   
-  /* أزرار الإجراءات */
   .card-actions{display:flex;gap:6px;margin-top:6px;}
   .add-btn{
     flex:1;background:var(--ink);color:var(--paper);
@@ -250,7 +248,7 @@
     font-size:10.5px;
     color:var(--water-deep);
     text-decoration:underline;
-    margin-top:2px;
+    margin-top:3px;
     cursor:pointer;
   }
 
@@ -262,12 +260,98 @@
   .why-item h3{font-size:15px;margin-top:6px;font-weight:600;}
   .why-item p{margin-top:4px;color:var(--ink-soft);font-size:12.5px;}
 
+  /* THE MAKER SECTION (سيرة مارينا الذاتية) */
+  .maker-wrap{
+    display:grid;
+    grid-template-columns:1fr 1.2fr;
+    gap:36px;
+    align-items:center;
+    background:var(--white);
+    padding:30px;
+    border-radius:var(--radius);
+    border:1px solid var(--line);
+    margin:0 auto;
+    max-width:920px;
+  }
+  @media(max-width:768px){
+    .maker-wrap{
+      grid-template-columns:1fr;
+      gap:20px;
+      padding:20px;
+    }
+  }
+  .maker-img{
+    width:100%;
+    aspect-ratio:1/1;
+    border-radius:14px;
+    object-fit:cover;
+    background:var(--paper-deep);
+  }
+  .maker-content h2{
+    font-size:clamp(24px,3.5vw,36px);
+    margin:6px 0 14px;
+    color:var(--ink);
+  }
+  .maker-content p{
+    font-size:14px;
+    color:var(--ink-soft);
+    line-height:1.65;
+    margin-bottom:12px;
+  }
+  .maker-signature{
+    font-family:'Fraunces',serif;
+    font-style:italic;
+    font-size:18px;
+    color:var(--ink);
+    margin-top:14px;
+  }
+
+  /* LAST THING / FINAL CTA BANNER (البنر الأخضر) */
+  .final-cta-banner{
+    background:linear-gradient(135deg, #2D473F 0%, #172420 100%);
+    border-radius:24px;
+    color:#FFFFFF;
+    padding:64px 24px;
+    text-align:center;
+    max-width:960px;
+    margin:0 auto;
+    position:relative;
+    overflow:hidden;
+  }
+  .final-cta-banner .eyebrow{
+    color:rgba(255,255,255,0.7);
+    letter-spacing:0.2em;
+    font-size:11px;
+    margin-bottom:16px;
+    display:block;
+  }
+  .final-cta-banner h2{
+    color:#FFFFFF;
+    font-size:clamp(26px, 4.5vw, 46px);
+    line-height:1.2;
+    max-width:14ch;
+    margin:0 auto 24px;
+    font-weight:400;
+  }
+  .final-cta-banner .btn{
+    background:#F6F4EF;
+    color:#221F1B;
+    padding:12px 28px;
+    font-size:13.5px;
+    border-radius:100px;
+  }
+  .final-cta-banner .btn:hover{
+    background:#FFFFFF;
+    transform:translateY(-2px);
+  }
+
   /* FOOTER */
-  footer{border-top:1px solid var(--line);padding:36px 0 20px;margin-top:20px;}
-  .foot-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
-  .foot-grid h5{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:8px;}
+  footer{border-top:1px solid var(--line);padding:36px 0 20px;margin-top:30px;}
+  .foot-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:24px;}
+  .foot-grid h5{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:8px;}
   .foot-links{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:5px;}
   .foot-links a{font-size:12px;color:var(--ink-soft);}
+  .foot-brand p{margin-top:10px;color:var(--ink-soft);font-size:12px;}
   .foot-bottom{
     margin-top:24px;padding-top:14px;border-top:1px solid var(--line);
     display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
@@ -365,7 +449,8 @@
       <ul class="navlinks">
         <li><a href="#hero">Home</a></li>
         <li><a href="#shop">Shop</a></li>
-        <li><a href="#why">About Us</a></li>
+        <li><a href="#maker">The Maker</a></li>
+        <li><a href="#why">About HOZI</a></li>
         <li><a href="#footer">Contact</a></li>
       </ul>
     </nav>
@@ -385,7 +470,8 @@
   <button class="close-menu" id="menu-close">Close ✕</button>
   <a href="#hero">Home</a>
   <a href="#shop">Shop</a>
-  <a href="#why">About Us</a>
+  <a href="#maker">The Maker</a>
+  <a href="#why">About HOZI</a>
   <a href="#footer">Contact</a>
 </div>
 
@@ -411,9 +497,29 @@
     <div class="section-head">
       <span class="eyebrow">Our Collection</span>
       <h2>Handmade Glass Drops</h2>
-      <p>Swipe on the images to view angles.</p>
+      <p>Swipe across images to view multiple angles easily.</p>
     </div>
     <div class="grid-products" id="product-grid"></div>
+  </div>
+</section>
+
+<!-- THE MAKER SECTION (سيرة مارينا الذاتية بأسلوب إنجليزي بسيط ومريح A2/B2) -->
+<section id="maker" style="background:var(--paper-deep);">
+  <div class="wrap">
+    <div class="maker-wrap">
+      <div>
+        <img src="marina.jpg" alt="Marina - Founder of HOZI" class="maker-img" onerror="if(!this.triedOther){this.triedOther=true;this.src='maker.jpg';}else{this.src='product1.jpg.jpeg';}">
+      </div>
+      <div class="maker-content">
+        <span class="eyebrow">The Maker</span>
+        <h2>Hi, I'm Marina.</h2>
+        <p>I started making glass bead chains for myself because I wanted simple and pretty jewelry for daily life.</p>
+        <p>My friends loved the designs and asked where I bought them. That is how <strong>HOZI</strong> was born!</p>
+        <p>Today, every single chain is still made by hand, one glass drop at a time, right here in Egypt.</p>
+        <p>I hope the piece you choose becomes your favorite accessory every day, not just for special events.</p>
+        <div class="maker-signature">— Marina</div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -449,6 +555,17 @@
   </div>
 </section>
 
+<!-- LAST THING / FINAL CTA BANNER (البنر الأخضر المفقود) -->
+<section style="padding-top:10px;padding-bottom:50px;">
+  <div class="wrap">
+    <div class="final-cta-banner">
+      <span class="eyebrow">LAST THING</span>
+      <h2>Your outfit is missing one small detail.</h2>
+      <a href="#shop" class="btn">Find Your Chain</a>
+    </div>
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer id="footer">
   <div class="wrap">
@@ -465,7 +582,7 @@
         <ul class="foot-links">
           <li><a href="https://wa.me/201220348402" target="_blank">Order via WhatsApp</a></li>
           <li><a href="tel:01220348402">+20 122 034 8402</a></li>
-          <li>Cash on Delivery</li>
+          <li>Cash on Delivery Available</li>
         </ul>
       </div>
     </div>
@@ -563,7 +680,6 @@
 <div class="toast" id="toast">Added to bag</div>
 
 <script>
-  // قائمة المنتجات مع دعم كافة العناصر الموجودة بالمستودع
   const products = [
     {
       id: "item1",
@@ -644,7 +760,6 @@
     }
   }
 
-  // بناء الكروت بدون أسهم مع نقاط فقط
   const grid = document.getElementById('product-grid');
   grid.innerHTML = products.map((p) => {
     const hasMultiple = p.images.length > 1;
@@ -701,7 +816,7 @@
     });
   }
 
-  // تفعيل السحب باللمس (Touch Swipe) والماوس
+  // دعم السحب باللمس على الكروت
   products.forEach(p => {
     if (p.images.length <= 1) return;
     const container = document.getElementById(`media-${p.id}`);
@@ -710,7 +825,6 @@
     let startX = 0;
     let startY = 0;
 
-    // لمس الموبايل
     container.addEventListener('touchstart', (e) => {
       startX = e.changedTouches[0].screenX;
       startY = e.changedTouches[0].screenY;
@@ -720,35 +834,14 @@
       let diffX = e.changedTouches[0].screenX - startX;
       let diffY = e.changedTouches[0].screenY - startY;
 
-      // التأكد أن الحركة أفقية وليست تمرير عمودي للصفحة
       if (Math.abs(diffX) > 35 && Math.abs(diffX) > Math.abs(diffY)) {
-        if (diffX < 0) {
-          slideTo(p.id, cardSlideIndex[p.id] + 1); // سحب لليسار
-        } else {
-          slideTo(p.id, cardSlideIndex[p.id] - 1); // سحب لليمين
-        }
-      }
-    }, { passive: true });
-
-    // سحب الماوس للكمبيوتر
-    let isDown = false;
-    container.addEventListener('mousedown', (e) => {
-      isDown = true;
-      startX = e.clientX;
-    });
-    container.addEventListener('mouseup', (e) => {
-      if (!isDown) return;
-      isDown = false;
-      let diffX = e.clientX - startX;
-      if (Math.abs(diffX) > 35) {
         if (diffX < 0) {
           slideTo(p.id, cardSlideIndex[p.id] + 1);
         } else {
           slideTo(p.id, cardSlideIndex[p.id] - 1);
         }
       }
-    });
-    container.addEventListener('mouseleave', () => isDown = false);
+    }, { passive: true });
   });
 
   // Quick View Functions
